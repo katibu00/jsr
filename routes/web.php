@@ -22,7 +22,13 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('admin');
+
+    if(auth()->check()){
+        if(auth()->user()->usertype == 'admin'){
+            return redirect()->route('admin.home');
+        }
+    };
+    return view('auth.login');
 });
 
 Route::get('/login', [AuthController::class, 'loginIndex'])->name('login')->middleware('guest');
@@ -72,4 +78,7 @@ Route::group(['prefix' => 'setups', 'middleware' => ['auth', 'admin']], function
 
 Route::group(['prefix' => 'users', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/agents/index', [UsersController::class, 'agentsIndex'])->name('users.agents.index');
+    Route::post('/agents/store', [UsersController::class, 'agentsStore'])->name('users.agents.store');
+
+    Route::post('/get-user-details', [UsersController::class, 'getDetails'])->name('get-user-details');
 });

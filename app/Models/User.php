@@ -41,4 +41,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function lga(){
+        return $this->belongsTo(LGA::class, 'lga_id','id');
+    }
+    public function ward(){
+        return $this->belongsTo(Ward::class, 'ward_id','id');
+    }
+    public function pu(){
+        return $this->belongsTo(PU::class, 'pu_id','id');
+    }
 }
