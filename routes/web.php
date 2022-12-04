@@ -79,6 +79,7 @@ Route::group(['prefix' => 'setups', 'middleware' => ['auth', 'admin']], function
 Route::group(['prefix' => 'users', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/agents/index', [UsersController::class, 'agentsIndex'])->name('users.agents.index');
     Route::post('/agents/store', [UsersController::class, 'agentsStore'])->name('users.agents.store');
+    Route::post('/agents/verify', [UsersController::class, 'verify'])->name('users.agents.verify');
 
     Route::post('/get-user-details', [UsersController::class, 'getDetails'])->name('get-user-details');
 });

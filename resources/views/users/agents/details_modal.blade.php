@@ -22,16 +22,61 @@
 
             <div class="d-none" id="content_div_details">
           
-                <h5 class="mt-4 small text-uppercase text-muted">Details</h5>
+                <div class="user-avatar-section">
+                    <div class="d-flex align-items-center flex-column">
+                      <img
+                        class="img-fluid rounded mb-3 pt-1 mt-4"
+                        src="/uploads/default.png"
+                        height="100"
+                        width="100"
+                        id="image"
+                        alt="Profile Picture"
+                      />
+                      <div class="user-info text-center">
+                        <h4 id="user_name" class="mb-2"></h4>
+                        <span id="user_usertype" class="badge bg-label-secondary"></span>
+                        <span id="user_status" class="badge bg-label-danger">In-Active</span>
+                      </div>
+                    </div>
+                  </div>
+
                 <div class="info-container">
                     <ul class="list-unstyled">
                         <li class="mb-2">
-                        <span class="fw-semibold me-1">Full Name:</span>
-                        <span id="user_name"></span>
+                        <span class="fw-semibold me-1">Primary Phone:</span>
+                        <span id="user_phone1"></span>
+                        </li>
+                        <li class="mb-2">
+                        <span class="fw-semibold me-1">Alternate Phone:</span>
+                        <span id="user_phone2"></span>
                         </li>
                         <li class="mb-2 pt-1">
-                        <span class="fw-semibold me-1">Email:</span>
-                        <span id="user_email"></span>
+                            <span class="fw-semibold me-1">Email:</span>
+                            <span id="user_email"></span>
+                        </li>
+                        <li class="mb-2 pt-1">
+                            <span class="fw-semibold me-1">LGA:</span>
+                            <span id="user_lga"></span>
+                        </li>
+                        <li class="mb-2 pt-1">
+                            <span class="fw-semibold me-1">Ward:</span>
+                            <span id="user_ward"></span>
+                        </li>
+                        <li class="mb-2 pt-1">
+                            <span class="fw-semibold me-1">PU:</span>
+                            <span id="user_pu"></span>
+                        </li>
+                        <li class="mb-2 pt-1">
+                            <span class="fw-semibold me-1">Address:</span>
+                            <span id="user_address"></span>
+                        </li>
+                        <li class="mb-2 pt-1">
+                            <span class="fw-semibold me-1">Gender:</span>
+                            <span id="user_gender"></span>
+                        </li>
+                        <li class="mb-2 pt-1">
+                            <span class="fw-semibold me-1">Marital Status:</span>
+                            <span id="user_marital"></span>
                         </li>
                     </ul>
                 </div>

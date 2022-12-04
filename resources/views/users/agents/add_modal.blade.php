@@ -109,7 +109,6 @@
                 id="marital"
                 name="marital"
                 class="form-select"
-                aria-label="Default select example"
               >
                 <option value=""></option>
                 <option value="Married">Married</option>
@@ -118,10 +117,10 @@
               </select>
             </div>
             <div class="col-12 col-md-6">
-              <label class="form-label" for="marital">Gender</label>
+              <label class="form-label" for="gender">Gender</label>
               <select
-                id="marital"
-                name="marital"
+                id="gender"
+                name="gender"
                 class="form-select"
               >
                 <option ></option>

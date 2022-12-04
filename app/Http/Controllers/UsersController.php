@@ -14,7 +14,7 @@ class UsersController extends Controller
     {
         $data['agents'] = User::paginate(3);
         $data['lgas'] = LGA::all();
-        return view('users.agents.index',$data);
+        return view('users.agents.index', $data);
     }
 
     public function agentsStore(Request $request)
@@ -26,7 +26,7 @@ class UsersController extends Controller
             'lga' => 'required|max:191',
             'ward' => 'required|max:191',
             'pu' => 'required|max:191',
-           
+
         ]);
 
         if ($validator->fails()) {
@@ -38,7 +38,8 @@ class UsersController extends Controller
 
             $user = new User();
             $user->name = $request->name;
-            $user->usertype = 'user';
+            $user->status = 1;
+            $user->usertype = 'agent';
             $user->phone1 = $request->phone1;
             $user->phone2 = $request->phone2;
             $user->email = $request->email;
@@ -60,11 +61,38 @@ class UsersController extends Controller
 
     public function getDetails(Request $request)
     {
-       $user = User::find($request->id);
+        $user = User::with(['lga', 'ward', 'pu'])->find($request->id);
 
-       return response()->json([
-        'status' => 200,
-        'user' => $user,
-    ]);
+        return response()->json([
+            'status' => 200,
+            'user' => $user,
+        ]);
+    }
+    public function verify(Request $request)
+    {
+        $user = User::where('id',$request->id)->first();
+        
+        if($user->status == 0)
+        {
+            $user->status = 1;
+            $user->update();
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'User Verified was sucessfully',
+            ]);
+           
+        }
+        if($user->status == 1)
+        {
+            $user->status = 0;
+            $user->update();
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'User Unverified was sucessfully',
+            ]);
+        }
+       
     }
 }
