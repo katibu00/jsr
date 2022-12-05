@@ -49,14 +49,20 @@ $route = Route::current()->getName();
 
     <ul class="menu-inner py-1">
       
-        <li class="menu-item {{($route=='admin.home')?'active':''}}">
-            <a href="{{ route('admin.home') }}" class="menu-link">
-              <i class="menu-icon tf-icons ti ti-home"></i>
-              <div data-i18n="Home">Home</div>
-            </a>
-          </li>
-      
-      
+      <li class="menu-item {{($route=='admin.home')?'active':''}}">
+          <a href="{{ route('admin.home') }}" class="menu-link">
+            <i class="menu-icon tf-icons ti ti-home"></i>
+            <div data-i18n="Home">Home</div>
+          </a>
+      </li>
+
+      <li class="menu-item {{($route=='elections.index')?'active':''}}">
+          <a href="{{ route('elections.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons ti ti-copy"></i>
+            <div data-i18n="Elections">Elections</div>
+          </a>
+      </li>
+
       <li class="menu-item {{($prefix=='/users')?'active open':''}}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons ti ti-users"></i>
@@ -76,6 +82,7 @@ $route = Route::current()->getName();
          
         </ul>
       </li>
+
       <li class="menu-item {{($prefix=='/setups')?'active open':''}}">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
           <i class="menu-icon tf-icons ti ti-settings"></i>

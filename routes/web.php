@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ElectionsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Setup\LGAController;
 use App\Http\Controllers\Setup\PPController;
@@ -82,4 +83,10 @@ Route::group(['prefix' => 'users', 'middleware' => ['auth', 'admin']], function 
     Route::post('/agents/verify', [UsersController::class, 'verify'])->name('users.agents.verify');
 
     Route::post('/get-user-details', [UsersController::class, 'getDetails'])->name('get-user-details');
+});
+
+Route::group(['prefix' => 'elections', 'middleware' => ['auth', 'admin']], function () {
+    Route::get('/index', [ElectionsController::class, 'index'])->name('elections.index');
+    Route::post('/store', [ElectionsController::class, 'store'])->name('elections.store');
+
 });
