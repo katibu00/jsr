@@ -15,13 +15,9 @@ return new class extends Migration
     {
         Schema::create('post_results', function (Blueprint $table) {
             $table->id();
-            $table->integer('election_id');
-            $table->integer('lga_id');
-            $table->integer('ward_id');
-            $table->integer('pu_id');
+            $table->integer('post_submit_id');
             $table->integer('party_id');
             $table->integer('votes');
-            $table->integer('user_id');
             $table->timestamps();
         });
     }

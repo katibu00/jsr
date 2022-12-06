@@ -101,11 +101,43 @@
                         $('#warning').addClass("d-none")
                     }
                     var html = '';
+                    html += `<div class="col-md-10 mb-2">
+                                <div class="row">
+                                    <label class="col-sm-4 col-form-label text-sm-end" for="formtabs-first-name">Registered Voters</label>
+                                    <div class="col-sm-8">
+                                    <input type="number" name="registered"  class="form-control form-control-sm" placeholder="Total Registered Voters" required/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-10 mb-2">
+                                <div class="row">
+                                    <label class="col-sm-4 col-form-label text-sm-end" for="formtabs-first-name">Accredited Voters</label>
+                                    <div class="col-sm-8">
+                                    <input type="number" name="accredited"  class="form-control form-control-sm" placeholder="Total Accredited Voters" required/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-10 mb-2">
+                                <div class="row">
+                                    <label class="col-sm-4 col-form-label text-sm-end" for="formtabs-first-name">Valid Votes</label>
+                                    <div class="col-sm-8">
+                                    <input type="number" name="valid"  class="form-control form-control-sm" placeholder="Total Valid Votes" required/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-10 mb-2">
+                                <div class="row">
+                                    <label class="col-sm-4 col-form-label text-sm-end" for="formtabs-first-name">Rejected Votes</label>
+                                    <div class="col-sm-8">
+                                    <input type="number" name="rejected"  class="form-control form-control-sm" placeholder="Total Rejected Votes" required/>
+                                    </div>
+                                </div>
+                            </div>`;
                     $.each(res.parties, function(key, party) {
                         html += `<div class="col-md-10 mb-2">
                                     <div class="row">
-                                        <label class="col-sm-3 col-form-label text-sm-end" for="formtabs-first-name">${party.code}</label>
-                                        <div class="col-sm-9">
+                                        <label class="col-sm-4 col-form-label text-sm-end" for="formtabs-first-name">${party.code}</label>
+                                        <div class="col-sm-8">
                                         <input type="hidden" name="party_id[]" value="${party.id}" />
                                         <input type="number" name="votes[]"  class="form-control form-control-sm" placeholder="Enter Votes for ${party.code}" required/>
                                         </div>
@@ -114,8 +146,8 @@
                     });
                     html += `<div class="col-md-10 mb-2">
                                 <div class="row">
-                                    <label class="col-sm-3 col-form-label text-sm-end" for="formtabs-first-name">Others</label>
-                                    <div class="col-sm-9">
+                                    <label class="col-sm-4 col-form-label text-sm-end" for="formtabs-first-name">Others</label>
+                                    <div class="col-sm-8">
                                     <input type="hidden" name="party_id[]" value="0" />
                                     <input type="number" name="votes[]"  class="form-control form-control-sm" placeholder="Enter Votes for Other Parties Combined" required/>
                                     </div>

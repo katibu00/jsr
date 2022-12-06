@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Election;
 use App\Models\LGA;
 use App\Models\PostResult;
+use App\Models\PostResultSubmit;
 use App\Models\PP;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -31,7 +32,7 @@ class PostResultController extends Controller
 
         }
         $warn = 'no';
-        $exist = PostResult::where('election_id',$request->election_id)->where('pu_id',$request->pu_id)->first();
+        $exist = PostResultSubmit::where('election_id',$request->election_id)->where('pu_id',$request->pu_id)->first();
         if($exist)
         {
             $warn = 'yes';
@@ -62,14 +63,14 @@ class PostResultController extends Controller
         }
         $user_id = auth()->user()->id;
 
-        $pu_exist = PostResult::select('id')->where('pu_id', $request->pu_id)->first();
+        $pu_exist = PostResultSubmit::select('id')->where('election_id', $request->election_id)->where('pu_id', $request->pu_id)->first();
 
         if ($pu_exist) {
 
             $rowCount = count($request->party_id);
             if ($rowCount != null) {
                 for ($i = 0; $i < $rowCount; $i++) {
-                    $data = PostResult::where('pu_id', $request->pu_id)->where('party_id', $request->party_id[$i])->first();
+                    $data = PostResult::where('post_submit_id',$pu_exist->id)->where('party_id', $request->party_id[$i])->first();
                     $data->votes = $request->votes[$i];
                     $data->update();
                 }
@@ -81,17 +82,25 @@ class PostResultController extends Controller
             ]);
         }
 
+        $submit = new PostResultSubmit();
+        $submit->election_id = $request->election_id;
+        $submit->lga_id = $request->lga_id;
+        $submit->ward_id = $request->ward_id;
+        $submit->pu_id = $request->pu_id;
+        $submit->user_id = $user_id;
+        $submit->registered = $request->registered;
+        $submit->accredited = $request->accredited;
+        $submit->valid = $request->valid;
+        $submit->rejected = $request->rejected;
+        $submit->save();
+
         $rowCount = count($request->party_id);
         if ($rowCount != null) {
             for ($i = 0; $i < $rowCount; $i++) {
                 $data = new PostResult();
-                $data->election_id = $request->election_id;
-                $data->lga_id = $request->lga_id;
-                $data->ward_id = $request->ward_id;
-                $data->pu_id = $request->pu_id;
+                $data->post_submit_id = $submit->id;
                 $data->party_id = $request->party_id[$i];
                 $data->votes = $request->votes[$i];
-                $data->user_id = $user_id;
                 $data->save();
             }
         }
