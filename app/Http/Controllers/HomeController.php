@@ -10,4 +10,8 @@ class HomeController extends Controller
     {
         return view('admin');
     }
+    public function agent()
+    {
+        return view('agent');
+    }
 }

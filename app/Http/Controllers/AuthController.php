@@ -47,6 +47,11 @@ class AuthController extends Controller
                     'status' => 200,
                     'user' => 'user',
                 ]);
+            } else if (Auth::user()->usertype == 'agent') {
+                return response()->json([
+                    'status' => 200,
+                    'user' => 'agent',
+                ]);
             } else if (Auth::user()->usertype == 'admin') {
                 return response()->json([
                     'status' => 200,

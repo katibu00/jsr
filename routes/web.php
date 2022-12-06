@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ElectionsController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PostResultController;
 use App\Http\Controllers\Setup\LGAController;
 use App\Http\Controllers\Setup\PPController;
 use App\Http\Controllers\Setup\PUsController;
@@ -46,8 +47,11 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 Route::group(['middleware' => ['auth', 'user']], function () {
     Route::get('/user/home', [HomeController::class, 'admin'])->name('user.home');
 });
+Route::group(['middleware' => ['auth', 'agent']], function () {
+    Route::get('/agent/home', [HomeController::class, 'agent'])->name('agent.home');
+});
 
-Route::group(['prefix' => 'setups', 'middleware' => ['auth', 'admin']], function () {
+Route::group(['prefix' => 'setups', 'middleware' => ['auth']], function () {
     Route::get('/lga/index', [LGAController::class, 'index'])->name('lga.index');
     Route::post('/lga/index', [LGAController::class, 'store']);
     Route::post('/lga/update', [LGAController::class, 'update'])->name('lga.update');
@@ -88,5 +92,12 @@ Route::group(['prefix' => 'users', 'middleware' => ['auth', 'admin']], function 
 Route::group(['prefix' => 'elections', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/index', [ElectionsController::class, 'index'])->name('elections.index');
     Route::post('/store', [ElectionsController::class, 'store'])->name('elections.store');
+
+});
+
+Route::group(['prefix' => 'result', 'middleware' => ['auth']], function () {
+    Route::get('/post/index', [PostResultController::class, 'index'])->name('result.post');
+    Route::post('/post/index', [PostResultController::class, 'store']);
+    Route::post('/get-elections', [PostResultController::class, 'getElections'])->name('get-elections');
 
 });
