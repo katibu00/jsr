@@ -14,7 +14,7 @@
             <form action="{{ route('result.collation')}}" method="post">
                 @csrf
                 <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-4 mb-2">
                     <select name="election_id" class="form-select form-select-sm" required>
                     <option value="">--Election--</option>
                     @foreach ($elections as $election)
