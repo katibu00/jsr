@@ -99,6 +99,7 @@ class PostResultController extends Controller
             for ($i = 0; $i < $rowCount; $i++) {
                 $data = new PostResult();
                 $data->post_submit_id = $submit->id;
+                $data->election_id = $request->election_id;
                 $data->party_id = $request->party_id[$i];
                 $data->votes = $request->votes[$i];
                 $data->save();

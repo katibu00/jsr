@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CollationController;
 use App\Http\Controllers\ElectionsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostResultController;
@@ -99,5 +100,10 @@ Route::group(['prefix' => 'result', 'middleware' => ['auth']], function () {
     Route::get('/post/index', [PostResultController::class, 'index'])->name('result.post');
     Route::post('/post/index', [PostResultController::class, 'store']);
     Route::post('/get-elections', [PostResultController::class, 'getElections'])->name('get-elections');
+
+    Route::get('/collation/index', [CollationController::class, 'index'])->name('result.collation');
+    Route::post('/collation/index', [CollationController::class, 'getResult'])->name('result.collation');
+    // Route::post('/get-result', [CollationController::class, 'getResult'])->name('get-result');
+
 
 });

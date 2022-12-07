@@ -11,6 +11,12 @@
       <div data-i18n="Elections">Elections</div>
     </a>
 </li>
+<li class="menu-item {{($route=='result.collation')?'active':''}}">
+  <a href="{{ route('result.collation') }}" class="menu-link">
+    <i class="menu-icon tf-icons ti ti-chart-line"></i>
+    <div data-i18n="Result Collation">Result Collation</div>
+  </a>
+</li>
 <li class="menu-item {{($route=='result.post')?'active':''}}">
   <a href="{{ route('result.post') }}" class="menu-link">
     <i class="menu-icon tf-icons ti ti-speakerphone"></i>
