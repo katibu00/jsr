@@ -22,7 +22,7 @@ class CollationController extends Controller
     {
         $election = Election::select('parties','title','lgas','selected_lgas')->where('id', $request->election_id)->first();
         $party_ids = explode(',', $election->parties); 
-        array_push($party_ids,'0');
+        array_push($party_ids,'5000');
         
 
         $parties = [];
