@@ -13,7 +13,7 @@ class ElectionsController extends Controller
     public function index()
     {
         $data['elections'] = Election::all();
-        $data['parties'] = PP::all();
+        $data['parties'] = PP::where('id','!=',0)->get();
         $data['lgas'] = LGA::all();
         return view('elections.index',$data);
     }

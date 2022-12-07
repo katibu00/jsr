@@ -12,7 +12,7 @@ class PPController extends Controller
 {
     public function index()
     {
-        $data['pps'] = PP::orderBy('name')->get();
+        $data['pps'] = PP::where('id','!=',0)->orderBy('name')->get();
         return view('setup.pp.index',$data);
     }
 
