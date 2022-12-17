@@ -25,7 +25,7 @@
 
                     <td>
                         <div>
-                            <button type="button" data-id="{{ $value->id }}" data-name="{{ $value->name }}" data-code="{{ $value->code }}" data-status="{{ $value->status }}" class="btn btn-icon btn-outline-primary editItem"
+                            <button type="button" data-id="{{ $value->id }}" data-name="{{ $value->name }}" data-color="{{ $value->color }}" data-border="{{ $value->border }}" data-code="{{ $value->code }}" data-status="{{ $value->status }}" class="btn btn-icon btn-outline-primary editItem"
                                 data-bs-toggle="modal" data-bs-target="#editModal">
                                 <span class="ti ti-pencil me-1"></span>
                             </button>

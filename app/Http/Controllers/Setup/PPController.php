@@ -24,6 +24,8 @@ class PPController extends Controller
         $data = new PP();
         $data->name = $request->name;
         $data->code = $request->code;
+        $data->color = $request->color;
+        $data->border = $request->border;
         
         $destination = 'uploads'; 
             
@@ -63,6 +65,8 @@ class PPController extends Controller
         $data = PP::find($request->update_id);
         $data->name = $request->edit_name;
         $data->code = $request->edit_code;
+        $data->border = $request->edit_border;
+        $data->color = $request->edit_color;
 
         if ($request->file('edit_logo') != null) {
 

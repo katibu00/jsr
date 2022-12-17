@@ -138,6 +138,8 @@
            
            let name = $(this).data('name');
            let code = $(this).data('code');
+           let color = $(this).data('color');
+           let border = $(this).data('border');
            let id = $(this).data('id');
           
           
@@ -145,6 +147,8 @@
            $('.modal-title').html('Update '+name);
            $('#edit_name').val(name);
            $('#edit_code').val(code);
+           $('#edit_color').val(color);
+           $('#edit_border').val(border);
            $('#update_id').val(id);
        });
 

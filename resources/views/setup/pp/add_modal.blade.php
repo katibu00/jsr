@@ -25,6 +25,18 @@
                     </div>
                     <div class="col-md-12">
                         <div class="form-group">
+                            <label class="form-label">Color</label>
+                            <input class="form-control" type="text" name="color" required />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label class="form-label">Border Color</label>
+                            <input class="form-control" type="text" name="border" required />
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
                             <label class="form-label">Logo</label>
                             <input class="form-control" type="file" name="logo" required/>
                         </div>

@@ -29,6 +29,18 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
+                                <label class="form-label">Color</label>
+                                <input class="form-control" type="text" id="edit_color" name="edit_color" required />
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label">Border Color</label>
+                                <input class="form-control" type="text" id="edit_border" name="edit_border" required />
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
                                 <label class="form-label">Logo</label>
                                 <input class="form-control" type="file" name="edit_logo"/>
                             </div>

@@ -4,24 +4,23 @@
       <div data-i18n="Home">Home</div>
     </a>
 </li>
-
-<li class="menu-item {{($route=='elections.index')?'active':''}}">
-    <a href="{{ route('elections.index') }}" class="menu-link">
-      <i class="menu-icon tf-icons ti ti-copy"></i>
-      <div data-i18n="Elections">Elections</div>
-    </a>
-</li>
 <li class="menu-item {{($route=='result.collation')?'active':''}}">
   <a href="{{ route('result.collation') }}" class="menu-link">
     <i class="menu-icon tf-icons ti ti-chart-line"></i>
-    <div data-i18n="Result Collation">Result Collation</div>
+    <div data-i18n="Collation">Collation</div>
   </a>
 </li>
 <li class="menu-item {{($route=='result.post')?'active':''}}">
   <a href="{{ route('result.post') }}" class="menu-link">
     <i class="menu-icon tf-icons ti ti-speakerphone"></i>
-    <div data-i18n="Post Result">Post Result</div>
+    <div data-i18n="Submit Result">Submit Result</div>
   </a>
+</li>
+<li class="menu-item {{($route=='elections.index')?'active':''}}">
+    <a href="{{ route('elections.index') }}" class="menu-link">
+      <i class="menu-icon tf-icons ti ti-copy"></i>
+      <div data-i18n="Elections">Elections</div>
+    </a>
 </li>
 
 <li class="menu-item {{($prefix=='/users')?'active open':''}}">
