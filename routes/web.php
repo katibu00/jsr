@@ -33,6 +33,15 @@ Route::get('/', function () {
     };
     return view('auth.login');
 });
+Route::get('/home', function () {
+
+    if(auth()->check()){
+        if(auth()->user()->usertype == 'admin'){
+            return redirect()->route('admin.home');
+        }
+    };
+    return view('auth.login');
+});
 
 Route::get('/login', [AuthController::class, 'loginIndex'])->name('login')->middleware('guest');
 Route::post('/login', [AuthController::class, 'loginStore']);

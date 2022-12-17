@@ -98,6 +98,38 @@ class CollationController extends Controller
             $data['election_id'] = $request->election_id;
             $data['type'] = $request->type;
         }
+
+        if($request->type == 'pu')
+        {
+            $election = Election::select('parties','title','lgas','selected_lgas')->where('id', $request->election_id)->first();
+            $party_ids = explode(',', $election->parties); 
+            array_push($party_ids,'0');
+           
+            $data['parties_ids'] = $party_ids;
+    
+            $data['elections'] = Election::select('id','title')->get();
+            // $data['collected_pu'] = PostResultSubmit::select('pu_id')->where('election_id',$request->election_id)->groupBy('pu_id')->get()->count();
+          
+            if($election->lgas == 'all')
+            {
+                $data['total_pu'] = PU::select('id')->where('status',1)->count();
+            }else
+            {
+                $total_pus = 0;
+                $lga_ids = explode(',', $election->selected_lgas);
+                foreach ($lga_ids as $lg_id) {
+                    $pus = PU::select('id')->where('lga_id',$lg_id)->count();
+                    $total_pus += $pus; 
+                }
+                $data['total_pu'] = $total_pus;
+            }
+            $data['election_id'] = $request->election_id;
+            $data['type'] = $request->type;
+            $data['submissions'] = PostResultSubmit::where('election_id',$request->election_id)->orderBy('id','desc')->limit(50)->get();
+            $data['collected_pu'] = $data['submissions']->count();
+
+          
+        }
        
         return view('collation.index',$data);
     }

@@ -370,19 +370,12 @@
     <!-- Vendors JS -->
     <script src="/assets/vendor/libs/apex-charts/apexcharts.js"></script>
     <script src="/assets/vendor/libs/swiper/swiper.js"></script>
-    <script src="/assets/vendor/libs/datatables/jquery.dataTables.js"></script>
-    <script src="/assets/vendor/libs/datatables-bs5/datatables-bootstrap5.js"></script>
-    <script src="/assets/vendor/libs/datatables-responsive/datatables.responsive.js"></script>
-    <script src="/assets/vendor/libs/datatables-responsive-bs5/responsive.bootstrap5.js"></script>
-    <script src="/assets/vendor/libs/datatables-checkboxes-jquery/datatables.checkboxes.js"></script>
+   
 
     <script src="/toastr/toastr.min.js"></script>
     {!! Toastr::message() !!}
     <!-- Main JS -->
     <script src="/assets/js/main.js"></script>
-
-    <!-- Page JS -->
-    <script src="/assets/js/dashboards-analytics.js"></script>
     @yield('js')
 
 

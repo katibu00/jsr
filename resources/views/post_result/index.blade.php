@@ -14,8 +14,19 @@
           <form class="w-px-600 border rounded p-3 p-md-" id="postResultForm">
             <h3 class="mb-4">Post Election Result</h3>
             <ul id="error_list"></ul>
+            
             <div class="row g-3 mb-2">
-                <div class="col-md-6">
+             
+              <div class="col-md-6">
+                <select id="election" name="election_id" class="form-select form-select-sm">
+                  <option value="">--Election--</option>
+                  @foreach ($elections as $election)
+                    <option value="{{ $election->id }}">{{ $election->title }}</option>
+                  @endforeach
+                </select>
+             </div>
+
+              <div class="col-md-6">
                     <select id="lga" name="lga_id" class="form-select form-select-sm">
                       <option value="">--LGA--</option>
                       @foreach ($lgas as $lga)
@@ -28,19 +39,11 @@
                       <option value="">--Ward--</option>
                     </select>
                 </div>
-            </div>
-            <div class="row g-3 mb-2">
+           
+         
                 <div class="col-md-6">
                     <select id="pu" name="pu_id" class="form-select form-select-sm">
                       <option value="">--PU--</option>
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <select id="election" name="election_id" class="form-select form-select-sm">
-                      <option value="">--Election--</option>
-                      @foreach ($elections as $election)
-                        <option value="{{ $election->id }}">{{ $election->title }}</option>
-                      @endforeach
                     </select>
                 </div>
             </div>

@@ -28,6 +28,7 @@
                     <option value="">--Report Type--</option>
                     <option value="party" {{ @$type == 'party' ? 'selected': ''}}>Party-wise</option>
                     <option value="lga" {{ @$type == 'lga' ? 'selected': ''}}>LGA-wise</option>
+                    <option value="pu" {{ @$type == 'pu' ? 'selected': ''}}>last 50 PUs</option>
                     </select>
                 </div>
                 <div class="col-md-2">
@@ -137,6 +138,11 @@
       </div>
       <!-- /Party wise -->
       @endif
+
+
+       @if(@$type == 'pu')
+        @include('collation.pu')
+       @endif
       
     </div>
   </div>
