@@ -7,7 +7,9 @@
 <script type="text/javascript">
   $('.lga_div').removeClass("d-none");
   $('.election_div').removeClass("col-md-6");
-     ype_div').addClass("col-md-3");
+  $('.election_div').addClass("col-md-3");
+  $('.type_div').addClass("col-md-3");
+  $('.type_div').removeClass("col-md-4");
 </script>
 @endif
 @endsection

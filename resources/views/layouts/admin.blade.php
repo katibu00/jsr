@@ -22,25 +22,11 @@
       <div data-i18n="Elections">Elections</div>
     </a>
 </li>
-
-<li class="menu-item {{($prefix=='/users')?'active open':''}}">
-  <a href="javascript:void(0);" class="menu-link menu-toggle">
-    <i class="menu-icon tf-icons ti ti-users"></i>
-    <div data-i18n="Users">Users</div>
-  </a>
-  <ul class="menu-sub">
-    <li class="menu-item {{($route=='users.agents.index')?'active':''}}">
-      <a href="{{ route('users.agents.index') }}" class="menu-link">
-        <div data-i18n="Agents">Agents</div>
-      </a>
-    </li>
-    <li class="menu-item {{($route=='lga.index')?'active':''}}">
-      <a href="{{ route('lga.index') }}" class="menu-link">
-        <div data-i18n="Admins">Admins</div>
-      </a>
-    </li>
-   
-  </ul>
+<li class="menu-item {{($route=='users.agents.index')?'active':''}}">
+    <a href="{{ route('users.agents.index') }}" class="menu-link">
+      <i class="menu-icon tf-icons ti ti-users"></i>
+      <div data-i18n="Users">Users</div>
+    </a>
 </li>
 
 <li class="menu-item {{($prefix=='/setups')?'active open':''}}">

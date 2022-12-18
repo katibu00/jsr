@@ -96,6 +96,8 @@ Route::group(['prefix' => 'users', 'middleware' => ['auth', 'admin']], function 
     Route::post('/agents/store', [UsersController::class, 'agentsStore'])->name('users.agents.store');
     Route::post('/agents/verify', [UsersController::class, 'verify'])->name('users.agents.verify');
 
+    Route::post('/agents/sort', [UsersController::class, 'sort'])->name('users.agents.sort');
+
     Route::post('/get-user-details', [UsersController::class, 'getDetails'])->name('get-user-details');
 });
 

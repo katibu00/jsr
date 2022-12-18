@@ -12,7 +12,7 @@ class UsersController extends Controller
 {
     public function agentsIndex()
     {
-        $data['agents'] = User::paginate(3);
+        $data['users'] = User::all();
         $data['lgas'] = LGA::all();
         return view('users.agents.index', $data);
     }
@@ -95,4 +95,37 @@ class UsersController extends Controller
         }
        
     }
+
+    public function sort(Request $request)
+    {
+        if($request->lga_id == 'all' && $request->usertype == 'all')
+        {
+          $data['users'] = User::all();
+        }
+       
+        if($request->lga_id != 'all' && $request->usertype == 'all')
+        {
+          $data['users'] = User::where('lga_id',$request->lga_id)->get();
+        }
+
+        if($request->lga_id != 'all' && $request->usertype != 'all')
+        {
+          $data['users'] = User::where('lga_id',$request->lga_id)->where('usertype',$request->usertype)->get();
+        }
+        if($request->lga_id == 'all' && $request->usertype != 'all')
+        {
+          $data['users'] = User::where('usertype',$request->usertype)->get();
+        }
+      
+        if( $data['users']->count() > 0)
+        {
+            return view('users.agents.table', $data)->render();
+        }else
+        {
+            return response()->json([
+                'status' => 404,
+            ]);
+        }
+    }
+
 }

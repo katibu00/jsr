@@ -506,3 +506,95 @@
 
     });
 </script>
+
+
+{{-- change lga --}}
+<script type="text/javascript">
+    $(function() {
+        $(document).on('change', '#sort_lga', function() {
+
+            var lga_id = $('#sort_lga').val();
+            var usertype = $('#sort_user').val();
+
+            $('#content_div').addClass("d-none");
+            $('#loading_div').removeClass("d-none");
+
+         
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('users.agents.sort') }}',
+                data: {
+                    'lga_id': lga_id,
+                    'usertype': usertype
+                },
+                success: function(res) {
+                   
+                    $('#content_div').removeClass("d-none");
+                    $('#loading_div').addClass("d-none");
+
+                   
+                    if (res.status == 404) {
+                        $('.table-data').html(
+                            '<p class="text-danger text-center">No Data Found.</p>'
+                        );
+                    }
+                    $('.table-data').html(res);
+
+                }
+            });
+
+        });
+
+    });
+</script>
+{{-- change usrtype --}}
+<script type="text/javascript">
+    $(function() {
+        $(document).on('change', '#sort_user', function() {
+
+            var lga_id = $('#sort_lga').val();
+            var usertype = $('#sort_user').val();
+
+            $('#content_div').addClass("d-none");
+            $('#loading_div').removeClass("d-none");
+
+         
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('users.agents.sort') }}',
+                data: {
+                    'lga_id': lga_id,
+                    'usertype': usertype
+                },
+                success: function(res) {
+                   
+                    $('#content_div').removeClass("d-none");
+                    $('#loading_div').addClass("d-none");
+
+                   
+                    if (res.status == 404) {
+                        $('.table-data').html(
+                            '<p class="text-danger text-center">No Data Found.</p>'
+                        );
+                    }
+                    $('.table-data').html(res);
+
+                }
+            });
+
+        });
+
+    });
+</script>

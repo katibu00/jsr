@@ -1,20 +1,20 @@
-<div class="table-responsive text-nowrap">
+<div class="table-responsive text-nowrap table-data">
     <table class="table mb-2">
       <thead>
         <tr>
           <th>#</th>
           <th colspan="2" class="text-center">Name</th>
-          <th>Contact</th>
           <th>Address</th>
+          <th>Contact</th>
           <th>Status</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody class="table-border-bottom-0">
-        @foreach ($agents as $key => $value )
+        @foreach ($users as $key => $value )
         <tr>
           <td>
-            {{ $agents->firstItem() + $key }}
+            {{ $key + 1}}
           </td>
           <td>
             <div class="avatar avatar-sm me-2">
@@ -54,7 +54,7 @@
       </tbody>
     </table>
     <div class="d-flex justify-content-center">
-    {{ $agents->links() }}
+    {{-- {{ $users->links() }} --}}
     </div>
   </div>
   

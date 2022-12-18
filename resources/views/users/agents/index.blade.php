@@ -17,19 +17,21 @@
 		  <div class="card-body">
 			
 			<div class="card-title header-elements  d-flex flex-row">
-			  <h5 class="m-0 me-2 d-none d-md-block">Agents</h5>
+			  <h5 class="m-0 me-2 d-none d-md-block">Users</h5>
 			  
 
 			  <div class="card-title-elements ms-auto">
-				<select class="form-select form-select-sm w-auto">
-				  <option selected="">Option 1</option>
-				  <option>Option 2</option>
-				  <option>Option 3</option>
+				<select class="form-select form-select-sm w-auto" id="sort_lga">
+				  <option value="all" selected>All LGA</option>
+				  @foreach ($lgas as $lga)
+				  <option value="{{ $lga->id }}">{{ $lga->name }}</option>
+				  @endforeach
 				</select>
-				<select class="form-select form-select-sm w-auto">
-				  <option selected="">Option 1</option>
-				  <option>Option 2</option>
-				  <option>Option 3</option>
+				<select class="form-select form-select-sm w-auto" id="sort_user">
+				  <option value="all">All Users</option>
+				  <option value="admin">Admins</option>
+				  <option value="agent">Agents</option>
+				  <option value="user">Unverified</option>
 				</select>
 				<button type="button" class="btn btn-xs btn-primary" data-bs-toggle="modal" data-bs-target="#addNewModal">
 					<span class="tf-icon ti ti-plus ti-xs me-1"></span>Add
@@ -37,15 +39,23 @@
 			  </div>
 			</div>
 
-			@include('users.agents.table')
-			@include('users.agents.details_modal')
+			<div class="text-center d-flex justify-content-center my-5 d-none" id="loading_div">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+
+			<div class="" id="content_div">
+				@include('users.agents.table')
+			</div>
+			
 		  </div>
 		</div>
 	  </div>
 	</div>
 	<!--/ Header elements -->
 
-
+	@include('users.agents.details_modal')
 	@include('users.agents.add_modal')
 	
   </div>
