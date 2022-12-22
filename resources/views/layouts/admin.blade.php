@@ -10,6 +10,29 @@
     <div data-i18n="Collation">Collation</div>
   </a>
 </li>
+
+
+<li class="menu-item {{($prefix=='/communication')?'active open':''}}">
+  <a href="javascript:void(0);" class="menu-link menu-toggle">
+    <i class="menu-icon tf-icons ti ti-message"></i>
+    <div data-i18n="SMS">SMS</div>
+  </a>
+  <ul class="menu-sub">
+   
+    <li class="menu-item {{($route=='communication.index')?'active':''}}">
+      <a href="{{ route('communication.index') }}" class="menu-link">
+        <div data-i18n="Send SMS">Send SMS</div>
+      </a>
+    </li>
+    <li class="menu-item {{($route=='communication.balance')?'active':''}}">
+      <a href="{{ route('communication.balance') }}" class="menu-link">
+        <div data-i18n="Check Balance">Check Balance</div>
+      </a>
+    </li>
+   
+  </ul>
+</li>
+
 <li class="menu-item {{($route=='result.post')?'active':''}}">
   <a href="{{ route('result.post') }}" class="menu-link">
     <i class="menu-icon tf-icons ti ti-speakerphone"></i>

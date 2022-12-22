@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CollationController;
+use App\Http\Controllers\CommunicationController;
 use App\Http\Controllers\ElectionsController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PostResultController;
@@ -99,6 +100,13 @@ Route::group(['prefix' => 'users', 'middleware' => ['auth', 'admin']], function 
     Route::post('/agents/sort', [UsersController::class, 'sort'])->name('users.agents.sort');
 
     Route::post('/get-user-details', [UsersController::class, 'getDetails'])->name('get-user-details');
+});
+
+Route::group(['prefix' => 'communication', 'middleware' => ['auth', 'admin']], function () {
+    Route::get('/sms/index', [CommunicationController::class, 'index'])->name('communication.index');
+    Route::post('/sms/send', [CommunicationController::class, 'send'])->name('communication.send');
+    Route::get('/sms/balance', [CommunicationController::class, 'balance'])->name('communication.balance');
+   
 });
 
 Route::group(['prefix' => 'elections', 'middleware' => ['auth', 'admin']], function () {
