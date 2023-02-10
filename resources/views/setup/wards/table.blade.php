@@ -45,6 +45,7 @@
             @endforeach
         </tbody>
     </table>
+    {{ $wards->links() }}
 </div>
 
 
