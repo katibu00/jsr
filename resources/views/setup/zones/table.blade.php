@@ -41,4 +41,5 @@
         @endforeach
       </tbody>
     </table>
+    {{ $zones->links() }}
   </div>
