@@ -55,9 +55,7 @@ Route::post('/register', [AuthController::class, 'registerStore']);
 Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/admin/home', [HomeController::class, 'admin'])->name('admin.home');
 });
-Route::group(['middleware' => ['auth', 'user']], function () {
-    Route::get('/user/home', [HomeController::class, 'admin'])->name('user.home');
-});
+
 Route::group(['middleware' => ['auth', 'agent']], function () {
     Route::get('/agent/home', [HomeController::class, 'agent'])->name('agent.home');
 });

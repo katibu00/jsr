@@ -205,6 +205,15 @@
                             $(".login_btn").attr("disabled", false);
                         }
                         if (response.status == 200) {
+
+                          if (response.user == 'user') {
+                                $("#error_list").html("");
+                                $("#error_list").addClass("alert alert-danger");
+                                $("#error_list").append("<li>You are not verified yet. Please contact admin.</li>");
+                                $(".login_btn").text("Login");
+                                $(".login_btn").attr("disabled", false);
+                                return;
+                              }
                             $("#error_list").html("");
                             $("#error_list").removeClass("alert alert-danger");
                             $("#error_list").addClass("alert alert-success");
@@ -212,9 +221,7 @@
                                 "<li>Login Successful. Redirecting to Dashboard. . .</li>"
                             );
 
-                            if (response.user == 'user') {
-                                window.location.replace('{{ route('user.home') }}');
-                            }
+                          
                             if (response.user == 'admin') {
                                 window.location.replace('{{ route('admin.home') }}');
                             }

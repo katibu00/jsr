@@ -12,7 +12,7 @@ class UsersController extends Controller
 {
     public function agentsIndex()
     {
-        $data['users'] = User::all();
+        $data['users'] = User::latest()->get();
         $data['lgas'] = LGA::all();
         return view('users.agents.index', $data);
     }
@@ -75,6 +75,7 @@ class UsersController extends Controller
         if($user->status == 0)
         {
             $user->status = 1;
+            $user->usertype = 'agent';
             $user->update();
 
             return response()->json([
@@ -86,6 +87,7 @@ class UsersController extends Controller
         if($user->status == 1)
         {
             $user->status = 0;
+            $user->usertype = 'user';
             $user->update();
 
             return response()->json([

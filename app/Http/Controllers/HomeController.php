@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Election;
 use App\Models\LGA;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -17,6 +18,8 @@ class HomeController extends Controller
     }
     public function agent()
     {
-        return view('agent');
+        $data['lgas'] = LGA::all();
+        $data['elections'] = Election::where('accepting', 1)->get();
+        return view('post_result.index', $data);
     }
 }
