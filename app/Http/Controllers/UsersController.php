@@ -15,7 +15,6 @@ class UsersController extends Controller
         $data['users'] = User::latest()->get();
         $data['lgas'] = LGA::all();
         return view('users.agents.index', $data);
-        
     }
 
     public function agentsStore(Request $request)
