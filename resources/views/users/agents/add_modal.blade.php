@@ -30,7 +30,7 @@
                     id="phone1"
                     name="phone1"
                     class="form-control phone-number-mask"
-                    placeholder="0803 317 4228"
+                    placeholder="Primary Phone Number"
                   />
                 </div>
             </div>
@@ -44,7 +44,7 @@
                     id="phone2"
                     name="phone2"
                     class="form-control phone-number-mask"
-                    placeholder="0803 317 4228"
+                    placeholder="Alternate Phone Number"
                   />
                 </div>
             </div>

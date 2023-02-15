@@ -122,13 +122,6 @@
                   <button class="btn btn-primary d-grid w-100 login_btn" type="submit">Sign in</button>
                 </div>
               </form>
-
-              <p class="text-center">
-                <span>New on our platform?</span>
-                <a href="{{ route('register') }}">
-                  <span>Create an account</span>
-                </a>
-              </p>
             </div>
           </div>
           <!-- /Register -->

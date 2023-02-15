@@ -1,8 +1,8 @@
 <script>
     $(document).ready(function() {
-       
+
         // $(".pagination").addClass("justify-content-center");
-       
+
         //submit add user form
         $(document).on('submit', '#addNewForm', function(e) {
             e.preventDefault();
@@ -125,7 +125,7 @@
                         });
 
                         $.ajax({
-                            url: "{{ route('pus.delete') }}",
+                            url: "{{ route('users.delete') }}",
                             method: 'POST',
                             data: {
                                 id: id,
@@ -136,6 +136,52 @@
                                 if (res.status == 200) {
                                     swal('Deleted', res.message, "success");
                                     $('.table').load(location.href + ' .table');
+                                }
+
+                            }
+                        });
+                    }
+                });
+
+        });
+
+
+        //sms pass
+        $(document).on('click', '.smspass', function(e) {
+            e.preventDefault();
+
+            let id = $(this).data('id');
+            let name = $(this).data('name');
+            swal({
+                    title: "Send Login Credentials to" + name + "?",
+                    text: "Once deleted, you will not be able to recover it!",
+                    icon: "info",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+
+                        $.ajax({
+                            url: "{{ route('users.sms') }}",
+                            method: 'POST',
+                            data: {
+                                id: id,
+                            },
+
+                            success: function(res) {
+
+                                if (res.status == 200) {
+                                    swal('Sent', res.message, "success");
+                                }
+                                if (res.status == 404) {
+                                    swal('Error', res.message, "error");
                                 }
 
                             }
@@ -306,6 +352,7 @@
             $('#user_address').html('');
             $('#user_gender').html('');
             $('#user_marital').html('');
+            $('#user_pass').html('');
 
             let id = $(this).data('id');
 
@@ -361,6 +408,7 @@
                         $('#user_address').html(res.user.address);
                         $('#user_gender').html(res.user.gender);
                         $('#user_marital').html(res.user.marital);
+                        $('#user_pass').html(res.user.pvc);
 
 
 
@@ -376,26 +424,23 @@
         });
 
 
-         //delete item
-         $(document).on('click', '.verifyUser', function(e) {
+        //delete item
+        $(document).on('click', '.verifyUser', function(e) {
             e.preventDefault();
 
             let id = $(this).data('id');
             let name = $(this).data('name');
             let status = $(this).data('status');
             var swal_title;
-            if(status == 1)
-            {
+            if (status == 1) {
                 swal_title = 'Unverify';
-            }
-            else
-            {
+            } else {
                 swal_title = 'Verify';
             }
 
-            
+
             swal({
-                    title: swal_title+" " + name + "?",
+                    title: swal_title + " " + name + "?",
                     text: "Only verified Users can be able to post Election Results.",
                     icon: "warning",
                     buttons: true,
@@ -411,7 +456,7 @@
                         });
 
                         $.ajax({
-                            url: "{{ route('users.agents.verify')}}",
+                            url: "{{ route('users.agents.verify') }}",
                             method: 'POST',
                             data: {
                                 id: id,
@@ -519,7 +564,7 @@
             $('#content_div').addClass("d-none");
             $('#loading_div').removeClass("d-none");
 
-         
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -534,11 +579,11 @@
                     'usertype': usertype
                 },
                 success: function(res) {
-                   
+
                     $('#content_div').removeClass("d-none");
                     $('#loading_div').addClass("d-none");
 
-                   
+
                     if (res.status == 404) {
                         $('.table-data').html(
                             '<p class="text-danger text-center">No Data Found.</p>'
@@ -564,7 +609,7 @@
             $('#content_div').addClass("d-none");
             $('#loading_div').removeClass("d-none");
 
-         
+
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -579,11 +624,11 @@
                     'usertype': usertype
                 },
                 success: function(res) {
-                   
+
                     $('#content_div').removeClass("d-none");
                     $('#loading_div').addClass("d-none");
 
-                   
+
                     if (res.status == 404) {
                         $('.table-data').html(
                             '<p class="text-danger text-center">No Data Found.</p>'

@@ -48,8 +48,8 @@ Route::get('/login', [AuthController::class, 'loginIndex'])->name('login')->midd
 Route::post('/login', [AuthController::class, 'loginStore']);
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::get('/register', [AuthController::class, 'registerIndex'])->name('register')->middleware('guest');
-Route::post('/register', [AuthController::class, 'registerStore']);
+// Route::get('/register', [AuthController::class, 'registerIndex'])->name('register')->middleware('guest');
+// Route::post('/register', [AuthController::class, 'registerStore']);
 
 
 Route::group(['middleware' => ['auth', 'admin']], function () {
@@ -94,6 +94,8 @@ Route::group(['prefix' => 'users', 'middleware' => ['auth', 'admin']], function 
     Route::get('/agents/index', [UsersController::class, 'agentsIndex'])->name('users.agents.index');
     Route::post('/agents/store', [UsersController::class, 'agentsStore'])->name('users.agents.store');
     Route::post('/agents/verify', [UsersController::class, 'verify'])->name('users.agents.verify');
+    Route::post('/delete', [UsersController::class, 'delete'])->name('users.delete');
+    Route::post('/sms', [UsersController::class, 'sms'])->name('users.sms');
 
     Route::post('/agents/sort', [UsersController::class, 'sort'])->name('users.agents.sort');
 
@@ -110,6 +112,7 @@ Route::group(['prefix' => 'communication', 'middleware' => ['auth', 'admin']], f
 Route::group(['prefix' => 'elections', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/index', [ElectionsController::class, 'index'])->name('elections.index');
     Route::post('/store', [ElectionsController::class, 'store'])->name('elections.store');
+    Route::post('/delete', [ElectionsController::class, 'delete'])->name('elections.delete');
 
 });
 

@@ -78,6 +78,10 @@
                             <span class="fw-semibold me-1">Marital Status:</span>
                             <span id="user_marital"></span>
                         </li>
+                        <li class="mb-2 pt-1">
+                            <span class="fw-semibold me-1">Password:</span>
+                            <span id="user_pass"></span>
+                        </li>
                     </ul>
                 </div>
 

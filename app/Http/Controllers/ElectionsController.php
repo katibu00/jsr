@@ -56,4 +56,15 @@ class ElectionsController extends Controller
         ]);
     }
 
+
+    public function delete(Request $request){
+        $data = Election::find($request->id);
+        if($data->delete()){
+            return response()->json([
+                'status' => 200,
+                'message' => 'Election Deleted Successfully'
+            ]);
+        };
+    }
+
 }

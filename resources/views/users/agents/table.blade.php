@@ -43,7 +43,10 @@
                 <a class="dropdown-item verifyUser" data-id="{{ $value->id }}" data-name="{{ $value->name }}" data-status="{{ $value->status }}" href="javascript:void(0);"
                   ><i class="ti ti-checkup-list me-1"></i>{{ $value->status == 1 ? 'Unverify': 'Verify'}}</a
                 >
-                <a class="dropdown-item" href="javascript:void(0);"
+                <a class="dropdown-item smspass" data-id="{{ $value->id }}" data-name="{{ $value->name }}" href="javascript:void(0);"
+                  ><i class="ti ti-trash me-1"></i> SMS login Credentials</a
+                >
+                <a class="dropdown-item deleteItem" data-id="{{ $value->id }}" data-name="{{ $value->name }}" href="javascript:void(0);"
                   ><i class="ti ti-trash me-1"></i> Delete</a
                 >
               </div>

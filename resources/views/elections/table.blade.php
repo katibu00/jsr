@@ -74,7 +74,7 @@
                             <div class="dropdown-menu">
                               <a class="dropdown-item userDetails" href="javascript:void(0);" data-id="" data-bs-toggle="modal" data-bs-target="#userDetailsModal"
                                 ><i class="ti ti-hand-stop me-1"></i> Stop Collation</a>
-                              <a class="dropdown-item userDetails" href="javascript:void(0);" data-id="" data-bs-toggle="modal" data-bs-target="#userDetailsModal"
+                              <a class="dropdown-item deleteItem" href="javascript:void(0);" data-id="{{ @$election->id }}" data-name="{{ @$election->title }}" data-bs-toggle="modal" data-bs-target="#userDetailsModal"
                                 ><i class="ti ti-trash me-1"></i> Delete</a>
                              
                             </div>

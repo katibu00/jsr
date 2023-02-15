@@ -138,7 +138,7 @@
                         });
 
                         $.ajax({
-                            url: "{{ route('lga.delete') }}",
+                            url: "{{ route('elections.delete') }}",
                             method: 'POST',
                             data: {
                                 id: id,
