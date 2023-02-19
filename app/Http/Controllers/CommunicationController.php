@@ -41,8 +41,23 @@ class CommunicationController extends Controller
 
     public function send(Request $request)
     {
-       
-        $users = User::where('usertype','admin')->pluck('phone1')->toArray();
+        if($request->ward_id == 'all')
+        {
+            $users = User::where('lga_id', $request->lga_id)->pluck('phone1')->toArray(); 
+        }
+        else
+        {
+            $users = User::where('lga_id', $request->lga_id)->where('ward_id',$request->ward_id)->pluck('phone1')->toArray();
+        }
+        // dd($request->all()); 
+        $count = count($users);
+        if($count == 0){
+            Toastr::error('No users found in the selected LG/Ward.');
+            return redirect()->route('communication.index');
+        }
+        // return $count;
+
+
         
         $to = implode(',',$users);
        
@@ -76,8 +91,7 @@ class CommunicationController extends Controller
 
         } else 
         {
-
-            Toastr::success('Message Sent.');
+            Toastr::success('Message Sent to '.$count.' Users');
             return redirect()->route('communication.index');
         }
 

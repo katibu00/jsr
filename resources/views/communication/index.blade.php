@@ -21,7 +21,6 @@
                         <div class="col-md-4 mb-4">
                             <label for="lga" class="form-label">LGA</label>
                             <select class="form-select" name="lga_id" id="lga" aria-label="Default select example">
-                              <option value="all">All</option>
                               @foreach ($lgas as $lga)
                               <option value="{{ $lga->id }}">{{ $lga->name }}</option>
                               @endforeach
