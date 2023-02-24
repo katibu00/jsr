@@ -43,7 +43,7 @@
                         </tr>
                     </tbody>
                     <caption>
-                        <strong>{{ ucwords(strtolower($submit->pu->name)) . ' - ' . ucwords(strtolower($submit->ward->name)) . ' - ' . ucwords(strtolower($submit->lga->name)) . ' LG' }}</strong>
+                        <strong>{{ ucwords(strtolower(@$submit->pu->name)) . ' - ' . ucwords(strtolower(@$submit->ward->name)) . ' - ' . ucwords(strtolower(@$submit->lga->name)) . ' LG' }}</strong>
                     </caption>
                 </table>
         @endforeach
