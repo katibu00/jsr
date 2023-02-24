@@ -21,7 +21,7 @@ class PostResultController extends Controller
         {
             $data['lgas'] = LGA::where('id',auth()->user()->lga_id)->get();
         }
-        $data['elections'] = Election::where('accepting', 1)->get();
+        $data['elections'] = Election::all();
         return view('post_result.index', $data);
     }
 
@@ -67,6 +67,14 @@ class PostResultController extends Controller
                 'errors' => $validator->messages(),
             ]);
         }
+        $election = Election::find($request->election_id);
+        if($election->accepting != 1)
+        {
+            return response()->json([
+                'status' => 400,
+                'message' => "Result Collation not enabled for the selected Election",
+            ]);
+        }
         $user_id = auth()->user()->id;
 
         $pu_exist = PostResultSubmit::select('id')->where('election_id', $request->election_id)->where('pu_id', $request->pu_id)->first();
@@ -81,6 +89,12 @@ class PostResultController extends Controller
                     $data->update();
                 }
             }
+
+            $pu_exist->registered = $request->registered;
+            $pu_exist->accredited = $request->accredited;
+            $pu_exist->valid = $request->valid;
+            $pu_exist->rejected = $request->rejected;
+            $pu_exist->update();
 
             return response()->json([
                 'status' => 201,

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Setup;
 
 use App\Http\Controllers\Controller;
 use App\Models\LGA;
+use App\Models\PostResultSubmit;
 use App\Models\PU;
 use App\Models\Ward;
 use Illuminate\Http\Request;
@@ -95,6 +96,19 @@ class PUsController extends Controller
         return response()->json([
             'pus'=>$pus,
         ]);
+    }
+    public function getWarning(Request $request)
+    {
+        $exist = PostResultSubmit::select('id')->where('election_id',$request->election_id)->where('pu_id',$request->pu_id)->first();
+
+        if($exist)
+        {
+            return response()->json([
+                'status'=>'yes',
+                'message'=>'Result Already Posted for the selected PU. Posting new Result will update the existing Records',
+            ]);
+        }
+        
     }
     
 }

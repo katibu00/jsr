@@ -3,7 +3,7 @@
 
     <div class="card">
         <div class="card-header d-flex align-items-start justify-content-between pb-2">
-            <h5 class="card-title mb-0">Summary ({{ $lga_name }} LGA)</h5>
+            <h5 class="card-title mb-0">Summary ({{ @$lga_name->name }} LGA)</h5>
         </div>
         <div class="card-body pt-1">
             <div class="info-container">
@@ -35,7 +35,7 @@
 <!-- Party wise -->
 <div class="col-lg-8 col-12 mb-4">
     <div class="card">
-        <h5 class="card-header">Party-Wise ({{ $lga_name }} LGA)</h5>
+        <h5 class="card-header">Party-Wise ({{ @$lga_name->name }} LGA)</h5>
         <div class="card-body">
 
             @php

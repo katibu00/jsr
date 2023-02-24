@@ -78,6 +78,7 @@ Route::group(['prefix' => 'setups', 'middleware' => ['auth']], function () {
     Route::post('/polling_units/delete', [PUsController::class, 'delete'])->name('pus.delete');
     Route::post('/get-wards', [PUsController::class, 'getWards'])->name('get-wards');
     Route::post('/get-pus', [PUsController::class, 'getPUs'])->name('get-pus');
+    Route::post('/get-warning', [PUsController::class, 'getWarning'])->name('get-warning');
 
     Route::get('/senatorial_zones/index', [ZoneController::class, 'index'])->name('zone.index');
     Route::post('/senatorial_zones/store', [ZoneController::class, 'store'])->name('zone.store');

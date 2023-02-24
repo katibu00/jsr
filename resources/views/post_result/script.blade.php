@@ -128,6 +128,90 @@
     });
 </script>
 
+{{-- change PU --}}
+<script type="text/javascript">
+    $(function() {
+        $(document).on('change', '#pu', function() {
+
+            var election_id = $('#election').val();
+            var pu_id = $('#pu').val();
+
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('get-warning') }}',
+                data: {
+                    'election_id': election_id,
+                    'pu_id': pu_id
+                },
+                success: function(res) {
+                   
+                    if(res.status === 'yes')
+                    {
+                        Command: toastr["warning"](res.message);
+                        toastr.options = {
+                            closeButton: false,
+                            debug: false,
+                            newestOnTop: false,
+                            progressBar: false,
+                            positionClass: "toast-top-right",
+                            preventDuplicates: false,
+                            onclick: null,
+                            showDuration: "300",
+                            hideDuration: "1000",
+                            timeOut: "5000",
+                            extendedTimeOut: "1000",
+                            showEasing: "swing",
+                            hideEasing: "linear",
+                            showMethod: "fadeIn",
+                            hideMethod: "fadeOut",
+                        };
+                        $('#warning').removeClass("d-none")
+                    }else{
+                        $('#warning').addClass("d-none")
+                    }
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    if (xhr.status === 419) {
+                        Command: toastr["error"](
+                            "Session expired. please login again."
+                        );
+                        toastr.options = {
+                            closeButton: false,
+                            debug: false,
+                            newestOnTop: false,
+                            progressBar: false,
+                            positionClass: "toast-top-right",
+                            preventDuplicates: false,
+                            onclick: null,
+                            showDuration: "300",
+                            hideDuration: "1000",
+                            timeOut: "5000",
+                            extendedTimeOut: "1000",
+                            showEasing: "swing",
+                            hideEasing: "linear",
+                            showMethod: "fadeIn",
+                            hideMethod: "fadeOut",
+                        };
+
+                        setTimeout(() => {
+                            window.location.replace('{{ route('login') }}');
+                        }, 2000);
+                    }
+                },
+            });
+
+        });
+
+    });
+</script>
+
 {{-- change election --}}
 <script type="text/javascript">
     $(function() {
@@ -267,9 +351,56 @@
                 parties += parseFloat($(this).val());
             });
 
-            if (parties !== valid) {
+            if (parseInt(accredited) >  parseInt(registered)) {
                 Command: toastr["error"](
-                    "FIqures not matching. please check your entry and try again"
+                    "Accredited Voters Must not be greater than Registered Voters. please check your entry and try again"
+                );
+                toastr.options = {
+                    closeButton: false,
+                    debug: false,
+                    newestOnTop: false,
+                    progressBar: false,
+                    positionClass: "toast-top-right",
+                    preventDuplicates: false,
+                    onclick: null,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    timeOut: "5000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                };
+                return
+            }
+            var combined = parseInt(parties) + parseInt(others);
+            if (combined !=  parseInt(valid)) {
+                Command: toastr["error"](
+                    "Valid Votes must equal the sum of Individual Party Scores. please check your entry and try again"
+                );
+                toastr.options = {
+                    closeButton: false,
+                    debug: false,
+                    newestOnTop: false,
+                    progressBar: false,
+                    positionClass: "toast-top-right",
+                    preventDuplicates: false,
+                    onclick: null,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    timeOut: "5000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                };
+                return
+            }
+            if (parseInt(rejected)+parseInt(valid) != parseInt(accredited)) {
+                Command: toastr["error"](
+                    "Accredited Voters must equal the sum of Rejected and Valid Votes. please check your entry and try again"
                 );
                 toastr.options = {
                     closeButton: false,
@@ -291,9 +422,6 @@
                 return
             }
 
-
-            console.log(sum);
-            return;
 
             spinner =
                 '<div class="spinner-border" style="height: 20px; width: 20px;" role="status"><span class="sr-only">Loading...</span></div> &nbsp;Submitting . . .'
@@ -348,6 +476,28 @@
                         $.each(response.errors, function(key, err) {
                             $("#error_list").append("<li>" + err + "</li>");
                         });
+                        $("#submit_btn").text("Submit");
+                        $("#submit_btn").attr("disabled", false);
+                    }
+                    if (response.status == 400) {
+                        Command: toastr["error"](response.message);
+                            toastr.options = {
+                                closeButton: false,
+                                debug: false,
+                                newestOnTop: false,
+                                progressBar: false,
+                                positionClass: "toast-top-right",
+                                preventDuplicates: false,
+                                onclick: null,
+                                showDuration: "300",
+                                hideDuration: "1000",
+                                timeOut: "5000",
+                                extendedTimeOut: "1000",
+                                showEasing: "swing",
+                                hideEasing: "linear",
+                                showMethod: "fadeIn",
+                                hideMethod: "fadeOut",
+                            };
                         $("#submit_btn").text("Submit");
                         $("#submit_btn").attr("disabled", false);
                     }

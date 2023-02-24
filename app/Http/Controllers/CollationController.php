@@ -102,24 +102,12 @@ class CollationController extends Controller
             $data['title'] = $election->title;
             $data['elections'] = Election::select('id','title')->get();
             $data['collected_pu'] = PostResultSubmit::select('pu_id')->where('election_id',$request->election_id)->where('lga_id',$request->lga_id)->groupBy('pu_id')->get()->count();
+            $data['total_pu'] = PU::select('id')->where('status',1)->where('lga_id',$request->lga_id)->count();
           
-            if($election->lgas == 'all')
-            {
-                $data['total_pu'] = PU::select('id')->where('status',1)->count();
-            }else
-            {
-                $total_pus = 0;
-                $lga_ids = explode(',', $election->selected_lgas);
-                foreach ($lga_ids as $lg_id) {
-                    $pus = PU::select('id')->where('lga_id',$lg_id)->count();
-                    $total_pus += $pus; 
-                }
-                $data['total_pu'] = $total_pus;
-            }
             $data['election_id'] = $request->election_id;
             $data['send_lga_id'] = $request->lga_id;
             $data['type'] = $request->type;
-            $data['lga_name'] = LGA::find($request->lga_id)->name;
+            $data['lga_name'] = LGA::find($request->lga_id);
 
             $data['registered'] = PostResultSubmit::where('election_id',$request->election_id)->where('lga_id',$request->lga_id)->sum('registered');
             $data['accredited'] = PostResultSubmit::where('election_id',$request->election_id)->where('lga_id',$request->lga_id)->sum('accredited');
