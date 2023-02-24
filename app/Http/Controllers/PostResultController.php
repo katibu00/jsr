@@ -14,7 +14,13 @@ class PostResultController extends Controller
 {
     public function index()
     {
-        $data['lgas'] = LGA::all();
+        if(auth()->user()->usertype == 'admin')
+        {
+            $data['lgas'] = LGA::all();
+        }else
+        {
+            $data['lgas'] = LGA::where('id',auth()->user()->lga_id)->get();
+        }
         $data['elections'] = Election::where('accepting', 1)->get();
         return view('post_result.index', $data);
     }

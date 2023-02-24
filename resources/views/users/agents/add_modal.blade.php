@@ -24,7 +24,6 @@
             <div class="col-12 col-md-6">
                 <label class="form-label" for="phone1">Primary Phone Number</label>
                 <div class="input-group">
-                  {{-- <span class="input-group-text">NG (+234)</span> --}}
                   <input
                     type="tel"
                     id="phone1"
@@ -38,7 +37,6 @@
             <div class="col-12 col-md-6">
                 <label class="form-label" for="phone2">Alternate Phone Number</label>
                 <div class="input-group">
-                  {{-- <span class="input-group-text">NG (+234)</span> --}}
                   <input
                     type="tel"
                     id="phone2"
@@ -91,6 +89,19 @@
                   class="form-select"
                 >
                 </select>
+            </div>
+
+            <div class="col-12 col-md-6">
+              <label class="form-label" for="marital">Role</label>
+              <select
+                name="role"
+                class="form-select"
+              >
+                <option value=""></option>
+                <option value="agent">Agent</option>
+                <option value="coordinator">Coordinator</option>
+                <option value="admin">Admin</option>
+              </select>
             </div>
         
             <div class="col-12 col-md-12">

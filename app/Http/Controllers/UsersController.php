@@ -27,6 +27,7 @@ class UsersController extends Controller
             'lga' => 'required|max:191',
             'ward' => 'required|max:191',
             'pu' => 'required|max:191',
+            'role' => 'required',
 
         ]);
 
@@ -40,7 +41,7 @@ class UsersController extends Controller
             $user = new User();
             $user->name = $request->name;
             $user->status = 1;
-            $user->usertype = 'agent';
+            $user->usertype = $request->role;
             $user->phone1 = $request->phone1;
             $user->phone2 = $request->phone2;
             $user->email = $request->email;

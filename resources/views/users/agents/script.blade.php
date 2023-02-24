@@ -433,15 +433,15 @@
             let status = $(this).data('status');
             var swal_title;
             if (status == 1) {
-                swal_title = 'Unverify';
+                swal_title = 'Inactivate';
             } else {
-                swal_title = 'Verify';
+                swal_title = 'Activate';
             }
 
 
             swal({
                     title: swal_title + " " + name + "?",
-                    text: "Only verified Users can be able to post Election Results.",
+                    text: "Only Active Users can be able to post Election Results.",
                     icon: "warning",
                     buttons: true,
                     dangerMode: true,

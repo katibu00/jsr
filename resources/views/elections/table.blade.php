@@ -6,6 +6,7 @@
                 <th>Title</th>
                 <th>Date</th>
                 <th>Status</th>
+                <th>Collation</th>
                 <th>Parties</th>
                 <th>LGAs</th>
                 <th>Actions</th>
@@ -34,8 +35,8 @@
                          @elseif($today_date->gt($election_start))
                          <span class="badge bg-label-danger">Closed</span>
                         @endif
- 
                      </td>
+                     <td>{!! @$election->accepting? '<span class="badge bg-label-success">Accepting</span>': '<span class="badge bg-label-danger">Not Accepting</span>' !!}</td>
                     <td>
                         @php
                             $parties = explode(',', $election->parties); 
@@ -72,8 +73,13 @@
                               <i class="ti ti-dots-vertical"></i>
                             </button>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item userDetails" href="javascript:void(0);" data-id="" data-bs-toggle="modal" data-bs-target="#userDetailsModal"
-                                ><i class="ti ti-hand-stop me-1"></i> Stop Collation</a>
+                              {{-- <a class="dropdown-item userDetails" href="javascript:void(0);" data-id="" data-bs-toggle="modal" data-bs-target="#userDetailsModal"
+                                ><i class="ti ti-hand-stop me-1"></i> Stop Collation</a> --}}
+
+                                <a class="dropdown-item collation" data-id="{{ $election->id }}" data-name="{{ $election->title }}" data-accepting="{{ $election->accepting }}" href="javascript:void(0);"
+                                    ><i class="ti ti-checkup-list me-1"></i>{{ $election->accepting == 1 ? 'Stop Collation': 'Start Collation'}}</a
+                                  >
+
                               <a class="dropdown-item deleteItem" href="javascript:void(0);" data-id="{{ @$election->id }}" data-name="{{ @$election->title }}" data-bs-toggle="modal" data-bs-target="#userDetailsModal"
                                 ><i class="ti ti-trash me-1"></i> Delete</a>
                              

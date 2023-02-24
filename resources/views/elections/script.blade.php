@@ -310,5 +310,57 @@
         
        });
 
+        //toggle collation 
+        $(document).on('click', '.collation', function(e) {
+            e.preventDefault();
+
+            let id = $(this).data('id');
+            let name = $(this).data('name');
+            let accepting = $(this).data('accepting');
+
+            var swal_title;
+            if (accepting == 1) {
+                swal_title = 'Stop';
+            } else {
+                swal_title = 'Start';
+            }
+
+
+            swal({
+                    title: swal_title + " Collating " + name + "?",
+                    text: "Results can only be collated if its accepting collation",
+                    icon: "warning",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+
+                        $.ajaxSetup({
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            }
+                        });
+                        $.ajax({
+                            url: "{{ route('elections.accepting') }}",
+                            method: 'POST',
+                            data: {
+                                id: id,
+                            },
+
+                            success: function(res) {
+
+                                if (res.status == 200) {
+                                    swal('Done', res.message, "success");
+                                    $('.table').load(location.href + ' .table');
+                                }
+
+                            }
+                        });
+                    }
+                });
+
+        });
+
     });
 </script>

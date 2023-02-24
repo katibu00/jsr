@@ -41,6 +41,12 @@ class AuthController extends Controller
                     'message' => 'Invalid Credentials',
                 ]);
             }
+            if (Auth::user()->status == 0) {
+                return response()->json([
+                    'status' => 401,
+                    'message' => 'You are not active User. Please contact Admin.',
+                ]);
+            } 
 
             if (Auth::user()->usertype == 'user') {
                 return response()->json([
@@ -73,8 +79,6 @@ class AuthController extends Controller
 
     public function registerStore(Request $request)
     {
-
-        // return $request->all();
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:191',
             'email' => 'required|email|unique:users,email',

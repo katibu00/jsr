@@ -161,7 +161,7 @@
                                 <div class="row">
                                     <label class="col-sm-4 col-form-label text-sm-end" for="formtabs-first-name">Registered Voters</label>
                                     <div class="col-sm-8">
-                                    <input type="number" name="registered"  class="form-control form-control-sm" placeholder="Total Registered Voters" required/>
+                                    <input type="number" name="registered" id="registered" class="form-control form-control-sm" placeholder="Total Registered Voters" required/>
                                     </div>
                                 </div>
                             </div>
@@ -169,7 +169,7 @@
                                 <div class="row">
                                     <label class="col-sm-4 col-form-label text-sm-end" for="formtabs-first-name">Accredited Voters</label>
                                     <div class="col-sm-8">
-                                    <input type="number" name="accredited"  class="form-control form-control-sm" placeholder="Total Accredited Voters" required/>
+                                    <input type="number" name="accredited" id="accredited" class="form-control form-control-sm" placeholder="Total Accredited Voters" required/>
                                     </div>
                                 </div>
                             </div>
@@ -177,7 +177,7 @@
                                 <div class="row">
                                     <label class="col-sm-4 col-form-label text-sm-end" for="formtabs-first-name">Valid Votes</label>
                                     <div class="col-sm-8">
-                                    <input type="number" name="valid"  class="form-control form-control-sm" placeholder="Total Valid Votes" required/>
+                                    <input type="number" name="valid" id="valid" class="form-control form-control-sm" placeholder="Total Valid Votes" required/>
                                     </div>
                                 </div>
                             </div>
@@ -185,7 +185,7 @@
                                 <div class="row">
                                     <label class="col-sm-4 col-form-label text-sm-end" for="formtabs-first-name">Rejected Votes</label>
                                     <div class="col-sm-8">
-                                    <input type="number" name="rejected"  class="form-control form-control-sm" placeholder="Total Rejected Votes" required/>
+                                    <input type="number" name="rejected" id="rejected" class="form-control form-control-sm" placeholder="Total Rejected Votes" required/>
                                     </div>
                                 </div>
                             </div>`;
@@ -195,7 +195,7 @@
                                         <label class="col-sm-4 col-form-label text-sm-end" for="formtabs-first-name">${party.code}</label>
                                         <div class="col-sm-8">
                                         <input type="hidden" name="party_id[]" value="${party.id}" />
-                                        <input type="number" name="votes[]"  class="form-control form-control-sm" placeholder="Enter Votes for ${party.code}" required/>
+                                        <input type="number" name="votes[]"  class="form-control form-control-sm party" placeholder="Enter Votes for ${party.code}" required/>
                                         </div>
                                     </div>
                                 </div>`;
@@ -205,7 +205,7 @@
                                     <label class="col-sm-4 col-form-label text-sm-end" for="formtabs-first-name">Others</label>
                                     <div class="col-sm-8">
                                     <input type="hidden" name="party_id[]" value="0" />
-                                    <input type="number" name="votes[]"  class="form-control form-control-sm" placeholder="Enter Votes for Other Parties Combined" required/>
+                                    <input type="number" name="votes[]" id="others" class="form-control form-control-sm" placeholder="Enter Votes for Other Parties Combined" required/>
                                     </div>
                                 </div>
                             </div>`;
@@ -256,6 +256,44 @@
             e.preventDefault();
 
             let formData = new FormData($('#postResultForm')[0]);
+
+            var registered = $('#registered').val();
+            var accredited = $('#accredited').val();
+            var valid = $('#valid').val();
+            var rejected = $('#rejected').val();
+            var others = $('#others').val();
+            let parties = 0;
+            $('.party').each(function() {
+                parties += parseFloat($(this).val());
+            });
+
+            if (parties !== valid) {
+                Command: toastr["error"](
+                    "FIqures not matching. please check your entry and try again"
+                );
+                toastr.options = {
+                    closeButton: false,
+                    debug: false,
+                    newestOnTop: false,
+                    progressBar: false,
+                    positionClass: "toast-top-right",
+                    preventDuplicates: false,
+                    onclick: null,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    timeOut: "5000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                };
+                return
+            }
+
+
+            console.log(sum);
+            return;
 
             spinner =
                 '<div class="spinner-border" style="height: 20px; width: 20px;" role="status"><span class="sr-only">Loading...</span></div> &nbsp;Submitting . . .'

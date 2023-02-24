@@ -6,6 +6,7 @@
           <th colspan="2" class="text-center">Name</th>
           <th>Address</th>
           <th>Contact</th>
+          <th>Role</th>
           <th>Status</th>
           <th>Actions</th>
         </tr>
@@ -30,7 +31,8 @@
           <td>
             {{ $value->phone1}}
           </td>
-          <td>@if($value->status == 1)<span class="badge bg-label-success me-1">Verified</span> @else <span class="badge bg-label-danger me-1">Unverified</span> @endif</td>
+          <td>{{ ucfirst($value->usertype) }}</td>
+          <td>@if($value->status == 1)<span class="badge bg-label-success me-1">Active</span> @else <span class="badge bg-label-danger me-1">Inactive</span> @endif</td>
           <td>
             <div class="dropdown">
               <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
@@ -41,10 +43,10 @@
                   ><i class="ti ti-user me-1"></i> Details</a
                 >
                 <a class="dropdown-item verifyUser" data-id="{{ $value->id }}" data-name="{{ $value->name }}" data-status="{{ $value->status }}" href="javascript:void(0);"
-                  ><i class="ti ti-checkup-list me-1"></i>{{ $value->status == 1 ? 'Unverify': 'Verify'}}</a
+                  ><i class="ti ti-checkup-list me-1"></i>{{ $value->status == 1 ? 'Inactive': 'Active'}}</a
                 >
                 <a class="dropdown-item smspass" data-id="{{ $value->id }}" data-name="{{ $value->name }}" href="javascript:void(0);"
-                  ><i class="ti ti-trash me-1"></i> SMS login Credentials</a
+                  ><i class="ti ti-mail me-1"></i> SMS login Credentials</a
                 >
                 <a class="dropdown-item deleteItem" data-id="{{ $value->id }}" data-name="{{ $value->name }}" href="javascript:void(0);"
                   ><i class="ti ti-trash me-1"></i> Delete</a

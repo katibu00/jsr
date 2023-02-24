@@ -48,10 +48,6 @@ Route::get('/login', [AuthController::class, 'loginIndex'])->name('login')->midd
 Route::post('/login', [AuthController::class, 'loginStore']);
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Route::get('/register', [AuthController::class, 'registerIndex'])->name('register')->middleware('guest');
-// Route::post('/register', [AuthController::class, 'registerStore']);
-
-
 Route::group(['middleware' => ['auth', 'admin']], function () {
     Route::get('/admin/home', [HomeController::class, 'admin'])->name('admin.home');
 });
@@ -96,34 +92,28 @@ Route::group(['prefix' => 'users', 'middleware' => ['auth', 'admin']], function 
     Route::post('/agents/verify', [UsersController::class, 'verify'])->name('users.agents.verify');
     Route::post('/delete', [UsersController::class, 'delete'])->name('users.delete');
     Route::post('/sms', [UsersController::class, 'sms'])->name('users.sms');
-
     Route::post('/agents/sort', [UsersController::class, 'sort'])->name('users.agents.sort');
-
     Route::post('/get-user-details', [UsersController::class, 'getDetails'])->name('get-user-details');
 });
 
 Route::group(['prefix' => 'communication', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/sms/index', [CommunicationController::class, 'index'])->name('communication.index');
     Route::post('/sms/send', [CommunicationController::class, 'send'])->name('communication.send');
-    Route::get('/sms/balance', [CommunicationController::class, 'balance'])->name('communication.balance');
-   
+    Route::get('/sms/balance', [CommunicationController::class, 'balance'])->name('communication.balance'); 
 });
 
 Route::group(['prefix' => 'elections', 'middleware' => ['auth', 'admin']], function () {
     Route::get('/index', [ElectionsController::class, 'index'])->name('elections.index');
     Route::post('/store', [ElectionsController::class, 'store'])->name('elections.store');
     Route::post('/delete', [ElectionsController::class, 'delete'])->name('elections.delete');
-
+    Route::post('/accepting', [ElectionsController::class, 'accepting'])->name('elections.accepting');
 });
 
 Route::group(['prefix' => 'result', 'middleware' => ['auth']], function () {
     Route::get('/post/index', [PostResultController::class, 'index'])->name('result.post');
     Route::post('/post/index', [PostResultController::class, 'store']);
     Route::post('/get-elections', [PostResultController::class, 'getElections'])->name('get-elections');
-
     Route::get('/collation/index', [CollationController::class, 'index'])->name('result.collation');
     Route::post('/collation/index', [CollationController::class, 'getResult'])->name('result.collation');
     // Route::post('/get-result', [CollationController::class, 'getResult'])->name('get-result');
-
-
 });

@@ -67,4 +67,33 @@ class ElectionsController extends Controller
         };
     }
 
+    public function accepting(Request $request)
+    {
+        $election = Election::where('id', $request->id)->first();
+
+        if ($election->accepting == 0) {
+            $election->accepting = 1;
+            $election->update();
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Collation has Started sucessfully',
+            ]);
+
+        }
+        if ($election->accepting == 1) {
+            $election->accepting = 0;
+            $election->update();
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Collation has been Stopped sucessfully',
+            ]);
+
+        }
+       
+
+    }
+
+
 }
