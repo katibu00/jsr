@@ -17,7 +17,7 @@ class AgentMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if(Auth::user()->usertype == 'agent'){
+        if(auth()->user()->usertype == 'agent'){
             return $next($request);
         }else{
             // Toastr::error('You are not Authorized to access this page', 'Not Allowed');

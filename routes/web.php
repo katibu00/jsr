@@ -31,6 +31,9 @@ Route::get('/', function () {
         if(auth()->user()->usertype == 'admin'){
             return redirect()->route('admin.home');
         }
+        if(auth()->user()->usertype == 'agent'){
+            return redirect()->route('agent.home');
+        }
     };
     return view('auth.login');
 });
@@ -39,6 +42,9 @@ Route::get('/home', function () {
     if(auth()->check()){
         if(auth()->user()->usertype == 'admin'){
             return redirect()->route('admin.home');
+        }
+        if(auth()->user()->usertype == 'agent'){
+            return redirect()->route('agent.home');
         }
     };
     return view('auth.login');

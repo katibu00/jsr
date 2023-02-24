@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Election;
 use App\Models\LGA;
+use App\Models\PU;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -18,14 +19,9 @@ class HomeController extends Controller
     }
     public function agent()
     {
-        if(auth()->user()->usertype == 'admin')
-        {
-            $data['lgas'] = LGA::all();
-        }else
-        {
-            $data['lgas'] = LGA::where('id',auth()->user()->lga_id)->get();
-        }
-        $data['elections'] = Election::where('accepting', 1)->get();
-        return view('post_result.index', $data);
+       
+        $data['pus'] = PU::select('id','name')->where('lga_id', auth()->user()->lga_id)->where('ward_id', auth()->user()->ward_id)->where('status',1)->get();
+        $data['elections'] = Election::select('id','title')->where('accepting', 1)->get();
+        return view('agent', $data);
     }
 }
