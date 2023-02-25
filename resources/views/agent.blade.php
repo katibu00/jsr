@@ -7,7 +7,7 @@
     {{-- <h5 class="card-header">Form Alignment</h5> --}}
     <div class="card-body">
       <div class="d-flex align-items-center justify-content-center" style="min-height: 400px">
-        <form class="w-px-800 border rounded p-3 p-md-" id="postResultForm">
+        <form class="w-px-800 border table-responsive rounded p-3 p-md-" id="postResultForm">
           <h3 class="mb-4 text-center">Result Postings</h3>
           <p class="text-center">{{  auth()->user()['lga']['name'].' LGA - '.auth()->user()['ward']['name']. ' Ward'}}</p><hr/>
          
