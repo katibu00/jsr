@@ -97,7 +97,7 @@
                 <tr>
                   <td>{{ $key+1 }}</td>
                   <td>{{ $election->title }}</td>
-                  <td>{!! @$election->accepting? '<span class="badge bg-label-success">Accepting</span>': '<span class="badge bg-label-danger">Not Accepting</span>' !!}</td>
+                  <td>{!! @$election->accepting == 1 ? '<span class="badge bg-label-success">Accepting</span>': '<span class="badge bg-label-danger">Not Accepting</span>' !!}</td>
                   <td>
                     <div class="d-flex justify-content-between gap-3">
                       <p class="mb-0">
