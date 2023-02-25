@@ -215,14 +215,12 @@
                             );
 
                           
-                            if (response.user == 'admin') {
-                                window.location.replace('{{ route('admin.home') }}');
-                            }
+                           
                             if (response.user == 'admin') {
                                 window.location.replace('{{ route('admin.home') }}');
                             }
                             if (response.user == 'agent') {
-                                window.location.replace('{{ route('agent.home') }}');
+                                window.location.replace('{{ route('result.post') }}');
                             }
                            
 

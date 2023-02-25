@@ -59,7 +59,7 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'agent']], function () {
-    Route::get('/agent/home', [HomeController::class, 'agent'])->name('agent.home');
+    Route::get('/postings', [HomeController::class, 'agent'])->name('agent.home');
 });
 
 Route::group(['prefix' => 'setups', 'middleware' => ['auth']], function () {
