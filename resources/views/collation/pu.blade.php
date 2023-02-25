@@ -36,6 +36,10 @@
                                         ->where('election_id', $election_id)
                                         ->where('party_id', $party_id)
                                         ->first()->votes;
+                                        if(@$total < 1)
+                                        {
+                                            @$total = 1;
+                                        }
                                 @endphp
                                 <td class="text-center fw-bold">{{ number_format($score) }}
                                     ({{ number_format((@$score / @$total) * 100, 2) }}%)</td>
