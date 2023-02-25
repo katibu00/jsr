@@ -81,52 +81,80 @@
               <thead class="border-bottom">
                 <tr>
                   <th>#</th>
-                  <th>LGA</th>
-                  <th>Wards</th>
-                  <th>PUs</th>
-                  <th>LG Agents</th>
+                  <th>Election</th>
+                  <th>Status</th>
+                  <th>Progress</th>
+                  <th>Parties</th>
+                  <th>Percentage</th>
                 </tr>
               </thead>
               <tbody>
-                @foreach ($lgas as $key => $lga )
+                @foreach ($elections as $key => $election)
+                @php
+                     $total_pu = App\Models\PU::select('id')->where('status', 1)->count();
+                     $collected_pu = App\Models\PostResultSubmit::select('id')->where('election_id',$election->id)->count();
+                @endphp 
                 <tr>
-                   <td>{{ $key + 1 }}</td>
-                   <td>{{ $lga->name }}</td>
-                   @php
-                     $wards = App\Models\Ward::where('lga_id', $lga->id)->count();
-                     $pus = App\Models\PU::where('lga_id', $lga->id)->count();
-                     $agents = App\Models\User::where('lga_id', $lga->id)->count();
-                    
-                   @endphp
-                   <td> {{ $wards != 0? number_format($wards,0) : '' }}</td>
-                   <td> {{ $pus != 0? number_format($pus,0) : '' }}</td>
-                  
-                   @if($pus != 0)
-                   @php
-                      if($pus == 0){ $pus = 1;}
-                     $percent = $agents/$pus*100
-                   @endphp
-                   <td> 
+                  <td>{{ $key+1 }}</td>
+                  <td>{{ $election->title }}</td>
+                  <td>{!! @$election->accepting? '<span class="badge bg-label-success">Accepting</span>': '<span class="badge bg-label-danger">Not Accepting</span>' !!}</td>
+                  <td>
                     <div class="d-flex justify-content-between gap-3">
-                      <p class="mb-0">{{ $agents.'/'.$pus }}</p>
-                      <span class="text-muted">{{ number_format($percent,0) }}%</span>
-                    </div>
-                    <div class="d-flex align-items-center mt-1">
+                      <p class="mb-0">
+                          <em>{{ number_format(@$collected_pu, 0) }}/{{ number_format(@$total_pu, 0) }}
+                              PUs Collated</em>
+                      </p>
+                      @php
+                          @$percent = (@$collected_pu / @$total_pu) * 100;
+                      @endphp
+                      <span class="text-muted">{{ number_format($percent, 2) }}%</span>
+                  </div>
+                  <div class="d-flex align-items-center mt-1">
                       <div class="progress w-100" style="height: 8px">
-                        <div
-                          class="progress-bar bg-primary"
-                          style="width: {{ number_format($percent,0) }}%"
-                          role="progressbar"
-                          aria-valuenow="85"
-                          aria-valuemin="0"
-                          aria-valuemax="100"
-                        ></div>
+                          <div class="progress-bar bg-primary"
+                              style="width: {{ number_format($percent, 2) }}%" role="progressbar"
+                              aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
                       </div>
-                    </div>
-                   </td>
-                   @else
-                   <td></td>
-                   @endif
+                  </div>
+                  </td>
+                  @php
+                      $party_ids = explode(',', $election->parties);
+                      array_push($party_ids,'0');
+                      $total_votes = 0;
+                  @endphp
+                  @foreach ($party_ids as $party)
+                  @php
+                     $name = App\Models\PP::select('id', 'code')->where('id', $party)->first();
+                     $total_score = App\Models\PostResult::select('votes')->where('election_id',$election->id)->sum('votes');
+                     $party_score = App\Models\PostResult::select('votes')->where('election_id',$election->id)->where('party_id',$party)->sum('votes');
+                     @$percent = (@$party_score / @$total_score) * 100;
+                     $total_votes += $party_score;
+                  @endphp
+                    <tr>
+                      <td colspan="4"></td>
+                      <td>{{ $name->code.' ('.$party_score.')' }}</td>
+                      <td>
+                        <div class="d-flex justify-content-between gap-3">
+                          <span class="text-muted">{{ number_format($percent, 2) }}%</span>
+                      </div>
+                        <div class="d-flex align-items-center mt-1">
+                          <div class="progress w-100" style="height: 8px">
+                              <div class="progress-bar bg-primary"
+                                  style="width: {{ number_format($percent, 2) }}%" role="progressbar"
+                                  aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                          </div>
+                      </div>
+                      </td>
+                    </tr>
+                  @endforeach
+                  <tr class="bg-warning">
+                    <td colspan="4"></td>
+                    <td><strong>Total Votes</strong></td>
+                    <td>
+                        <strong>{{ $total_votes }}</strong>
+                    </td>
+                  </tr>
+
                 </tr>
                 @endforeach
               </tbody>
