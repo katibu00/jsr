@@ -126,9 +126,17 @@
                   @php
                      $name = App\Models\PP::select('id', 'code')->where('id', $party)->first();
                      $total_score = App\Models\PostResult::select('votes')->where('election_id',$election->id)->sum('votes');
+                     if($total_score < 1)
+                     {
+                      $total_score = 1;
+                     }
                      $party_score = App\Models\PostResult::select('votes')->where('election_id',$election->id)->where('party_id',$party)->sum('votes');
                      @$percent = (@$party_score / @$total_score) * 100;
                      $total_votes += $party_score;
+                     if($total_votes < 1)
+                     {
+                      $total_votes = 1;
+                     }
                   @endphp
                     <tr>
                       <td colspan="4"></td>
