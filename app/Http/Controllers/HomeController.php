@@ -16,7 +16,7 @@ class HomeController extends Controller
         $data['lgas'] = LGA::all();
         $data['admins'] = User::where('usertype','admin')->count();
         $data['agents'] = User::where('usertype','agent')->count();
-        $data['elections'] = Election::select('id','title','parties')->where('accepting', 1)->get();
+        $data['elections'] = Election::select('id','title','parties','accepting')->where('accepting', 1)->get();
 
         return view('admin',$data);
     }
