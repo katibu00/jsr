@@ -179,7 +179,7 @@ class CollationController extends Controller
         }
         if($request->type == 'party_lg')
         {
-            $data['wards_collated'] = 0;
+            $data['wards_collated'] = PostResultSubmit::select('id','wards_count')->where('lga_id',$request->lga_id)->whereNotNull('wards_count')->sum('wards_count');
         }else
         {
             $data['wards_collated'] = PostResultSubmit::select('id','wards_count')->whereNotNull('wards_count')->sum('wards_count');
