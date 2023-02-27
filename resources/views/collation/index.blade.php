@@ -70,12 +70,12 @@
                                 @if (isset($election_id))
                                     <div class="d-flex justify-content-between gap-3">
                                         <p class="mb-0">
-                                            <em>{{ number_format(@$collected_pu, 0) }}/{{ number_format(@$total_pu, 0) }}
+                                            <em>{{ number_format((@$collected_pu+$wards_collated), 0) }}/{{ number_format(@$total_pu, 0) }}
                                                 PUs
                                                 Collated</em>
                                         </p>
                                         @php
-                                            @$percent = (@$collected_pu / @$total_pu) * 100;
+                                            @$percent = ((@$collected_pu+$wards_collated) / @$total_pu) * 100;
                                         @endphp
                                         <span class="text-muted">{{ number_format($percent, 0) }}%</span>
                                     </div>

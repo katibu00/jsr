@@ -116,11 +116,17 @@ Route::group(['prefix' => 'elections', 'middleware' => ['auth', 'admin']], funct
     Route::post('/accepting', [ElectionsController::class, 'accepting'])->name('elections.accepting');
 });
 
+Route::group(['prefix' => 'report', 'middleware' => ['auth']], function () {
+
+    Route::get('/collation/index', [CollationController::class, 'index'])->name('result.collation');
+    Route::post('/collation/index', [CollationController::class, 'getResult'])->name('result.collation');
+});
 Route::group(['prefix' => 'result', 'middleware' => ['auth']], function () {
     Route::get('/post/index', [PostResultController::class, 'index'])->name('result.post');
     Route::post('/post/index', [PostResultController::class, 'store']);
     Route::post('/get-elections', [PostResultController::class, 'getElections'])->name('get-elections');
-    Route::get('/collation/index', [CollationController::class, 'index'])->name('result.collation');
-    Route::post('/collation/index', [CollationController::class, 'getResult'])->name('result.collation');
-    // Route::post('/get-result', [CollationController::class, 'getResult'])->name('get-result');
+
+    Route::get('/post_by_ward/index', [PostResultController::class, 'indexWard'])->name('result.post.ward');
+    Route::post('/post_by_ward/index', [PostResultController::class, 'storeWard']);
+
 });

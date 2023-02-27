@@ -175,9 +175,14 @@ class CollationController extends Controller
             $data['election_id'] = $request->election_id;
             $data['type'] = $request->type;
             $data['submissions'] = PostResultSubmit::where('election_id',$request->election_id)->orderBy('id','desc')->limit(50)->get();
-            $data['collected_pu'] = $data['submissions']->count();
-
-          
+            $data['collected_pu'] = $data['submissions']->count();          
+        }
+        if($request->type == 'party_lg')
+        {
+            $data['wards_collated'] = 0;
+        }else
+        {
+            $data['wards_collated'] = PostResultSubmit::select('id','wards_count')->whereNotNull('wards_count')->sum('wards_count');
         }
 
 
