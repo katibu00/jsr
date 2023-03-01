@@ -30,8 +30,8 @@
 				<select class="form-select form-select-sm w-auto" id="sort_user">
 				  <option value="all">All Users</option>
 				  <option value="admin">Admins</option>
+				  <option value="coordinator">Coordinator</option>
 				  <option value="agent">Agents</option>
-				  <option value="user">Unverified</option>
 				</select>
 				<button type="button" class="btn btn-xs btn-primary" data-bs-toggle="modal" data-bs-target="#addNewModal">
 					<span class="tf-icon ti ti-plus ti-xs me-1"></span>Add

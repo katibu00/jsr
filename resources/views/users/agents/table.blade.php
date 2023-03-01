@@ -8,6 +8,7 @@
           <th>Contact</th>
           <th>Role</th>
           <th>Status</th>
+          <th>Postings</th>
           <th>Actions</th>
         </tr>
       </thead>
@@ -33,6 +34,10 @@
           </td>
           <td>{{ ucfirst($value->usertype) }}</td>
           <td>@if($value->status == 1)<span class="badge bg-label-success me-1">Active</span> @else <span class="badge bg-label-danger me-1">Inactive</span> @endif</td>
+         @php
+           $postings = App\Models\PostResultSubmit::where('user_id', $value->id)->count();
+         @endphp
+         <td>{{ $postings }}</td>
           <td>
             <div class="dropdown">
               <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">

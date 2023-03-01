@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LoginLogs;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,6 +49,10 @@ class AuthController extends Controller
                 ]);
             } 
 
+            $log = new LoginLogs();
+            $log->user_id = auth()->user()->id;
+            $log->save();
+
             if (Auth::user()->usertype == 'user') {
                 return response()->json([
                     'status' => 200,
@@ -64,7 +69,12 @@ class AuthController extends Controller
                     'user' => 'admin',
                 ]);
             
-            } else {
+            } else if (Auth::user()->usertype == 'coordinator') {
+                return response()->json([
+                    'status' => 200,
+                    'user' => 'coordinator',
+                ]);
+            }else {
                 return back()->with('status', 'You are not authorized to access this content');
             }
 
@@ -81,7 +91,7 @@ class AuthController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:191',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'email|unique:users,email',
             'phone' => 'required|min:9|numeric|unique:users,phone1',
             'password' => 'required|min:8',
         ]);

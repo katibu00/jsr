@@ -74,7 +74,7 @@
       <div class="col-md-12 mb-4">
         <div class="card h-100">
           <div class="card-header d-flex justify-content-between">
-            <h5 class="card-title m-0 me-2">Data Input</h5>
+            <h5 class="card-title m-0 me-2">Active Elections</h5>
           </div>
           <div class="table-responsive">
             <table class="table table-bordered border-top">

@@ -222,6 +222,9 @@
                             if (response.user == 'agent') {
                                 window.location.replace('{{ route('result.post') }}');
                             }
+                            if (response.user == 'coordinator') {
+                                window.location.replace('{{ route('result.post') }}');
+                            }
                            
 
                         }

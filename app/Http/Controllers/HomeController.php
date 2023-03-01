@@ -7,6 +7,7 @@ use App\Models\LGA;
 use App\Models\PostResultSubmit;
 use App\Models\PU;
 use App\Models\User;
+use App\Models\Ward;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -26,5 +27,12 @@ class HomeController extends Controller
         $data['pus'] = PU::select('id','name')->where('lga_id', auth()->user()->lga_id)->where('ward_id', auth()->user()->ward_id)->where('status',1)->get();
         $data['elections'] = Election::select('id','title')->where('accepting', 1)->get();
         return view('agent', $data);
+    }
+    public function coordinator()
+    {
+       
+        $data['wards'] = Ward::select('id','name')->where('lga_id', auth()->user()->lga_id)->where('status',1)->get();
+        $data['elections'] = Election::select('id','title')->where('accepting', 1)->get();
+        return view('coordinator', $data);
     }
 }

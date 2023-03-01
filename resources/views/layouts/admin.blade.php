@@ -99,3 +99,9 @@
     </li>
   </ul>
 </li>
+<li class="menu-item {{($route=='login.logs')?'active':''}}">
+  <a href="{{ route('login.logs') }}" class="menu-link">
+    <i class="menu-icon tf-icons ti ti-clock"></i>
+    <div data-i18n="Login Logs">Login Logs</div>
+  </a>
+</li>

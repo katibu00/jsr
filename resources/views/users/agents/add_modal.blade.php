@@ -114,33 +114,6 @@
                 placeholder="Enter Residential Address"
               />
             </div>
-            <div class="col-12 col-md-6">
-              <label class="form-label" for="marital">Marital Status</label>
-              <select
-                id="marital"
-                name="marital"
-                class="form-select"
-              >
-                <option value=""></option>
-                <option value="Married">Married</option>
-                <option value="Single">Single</option>
-                <option value="Divorced">Divorced</option>
-              </select>
-            </div>
-            <div class="col-12 col-md-6">
-              <label class="form-label" for="gender">Gender</label>
-              <select
-                id="gender"
-                name="gender"
-                class="form-select"
-              >
-                <option ></option>
-                <option value="Male">Male</option>
-                <option value="Female">Female</option>
-              </select>
-            </div>
-           
-           
     
             <div class="col-12 text-center">
               <button type="submit" class="btn btn-primary me-sm-3 me-1" id="submit_btn">Submit</button>

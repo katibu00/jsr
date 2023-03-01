@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\LGA;
+use App\Models\LoginLogs;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -17,12 +18,17 @@ class UsersController extends Controller
         $data['lgas'] = LGA::all();
         return view('users.agents.index', $data);
     }
+    public function loginLogs()
+    {
+        $data['logs'] = LoginLogs::paginate(15);
+        return view('users.login_logs', $data);
+    }
 
     public function agentsStore(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:191',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'sometimes|unique:users,email',
             'phone1' => 'required|min:9|numeric|unique:users,phone1',
             'lga' => 'required|max:191',
             'ward' => 'required|max:191',

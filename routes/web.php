@@ -59,7 +59,10 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 });
 
 Route::group(['middleware' => ['auth', 'agent']], function () {
-    Route::get('/postings', [HomeController::class, 'agent'])->name('agent.home');
+    Route::get('/agent/postings', [HomeController::class, 'agent'])->name('agent.home');
+});
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/coordinator/postings', [HomeController::class, 'coordinator'])->name('coordinator.home');
 });
 
 Route::group(['prefix' => 'setups', 'middleware' => ['auth']], function () {
@@ -101,6 +104,8 @@ Route::group(['prefix' => 'users', 'middleware' => ['auth', 'admin']], function 
     Route::post('/sms', [UsersController::class, 'sms'])->name('users.sms');
     Route::post('/agents/sort', [UsersController::class, 'sort'])->name('users.agents.sort');
     Route::post('/get-user-details', [UsersController::class, 'getDetails'])->name('get-user-details');
+
+    Route::get('/login-logs', [UsersController::class, 'loginLogs'])->name('login.logs');
 });
 
 Route::group(['prefix' => 'communication', 'middleware' => ['auth', 'admin']], function () {

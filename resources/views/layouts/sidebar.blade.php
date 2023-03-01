@@ -28,6 +28,9 @@ $route = Route::current()->getName();
       @if(auth()->user()->usertype == 'agent')
        @include('layouts.agent')
       @endif
+      @if(auth()->user()->usertype == 'coordinator')
+       @include('layouts.coordinator')
+      @endif
   
     </ul>
   </aside>
