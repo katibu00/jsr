@@ -34,11 +34,12 @@ class HomeController extends Controller
         $data['wards'] = Ward::select('id','name')->where('lga_id', auth()->user()->lga_id)->where('status',1)->get();
         // $data['elections'] = Election::select('id','title')->where('lga_id')->where('accepting', 1)->get();
 
-        $data['elections'] = Election::where(function ($query) {
-            $query->where('selected_lgas', 'LIKE', '%,'.auth()->user()->lga_id.',%');
-        })->orWhere('lgas', '=', 'all')->get();
+        $data['elections'] = Election::select('id','title')->where(function ($query)  {
+            $query->where('selected_lgas', 'LIKE', '%,'.auth()->user()->lga_id.',%')
+                  ->orWhere('lgas', 'all');
+        })->where('accepting', 1)->get();
 
-       
+        
         return view('coordinator', $data);
     }
 }
