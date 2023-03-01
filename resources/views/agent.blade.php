@@ -19,7 +19,7 @@
                         <th>#</th>
                         <th>PU</th>
                         @foreach ($elections as $election)
-                        <th class="text-center">{{ explode(' ', $election->title)[0] }}</th>
+                        <th class="text-center">{{ $election->title  }}</th>
                         @endforeach
                     </tr>
                 </thead>
