@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('usertype')->default('user');
             $table->integer('status')->default(0);
-            $table->string('email')->unique();
+            $table->string('email')->unique()->nullable();
             $table->string('phone1')->unique();
             $table->string('phone2')->unique()->nullable();
             $table->integer('lga_id')->nullable();

@@ -67,7 +67,7 @@
 {{-- change PU --}}
 <script type="text/javascript">
     $(function() {
-        $(document).on('change', '#wardqqqq', function() {
+        $(document).on('change', '#wardqqq', function() {
 
             var election_id = $('#election').val();
             var ward_id = $('#ward').val();

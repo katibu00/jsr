@@ -31,6 +31,9 @@ $route = Route::current()->getName();
       @if(auth()->user()->usertype == 'coordinator')
        @include('layouts.coordinator')
       @endif
+      @if(auth()->user()->usertype == 'ward')
+       @include('layouts.ward')
+      @endif
   
     </ul>
   </aside>

@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('PageTitle', 'PU Agent Postings')
+@section('PageTitle', 'Ward Coordinator Postings')
 @section('content')
 <!-- Content -->
 <div class="container-xxl flex-grow-1 container-p-y">
@@ -17,23 +17,23 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>PU</th>
+                        <th>Ward</th>
                         @foreach ($elections as $election)
                         <th class="text-center">{{ $election->title  }}</th>
                         @endforeach
                     </tr>
                 </thead>
                 <tbody class="table-border-bottom-0">
-                    @foreach ($pus as $key => $pu)
+                    @foreach ($wards as $key => $ward)
                         <tr>
                             <td>{{ $key + 1 }}</td>
                             <td>
-                                <strong>{{ $pu->name }}</strong>
+                                <strong>{{ $ward->name }}</strong>
                             </td>
 
                             @foreach ($elections as $election)
                               @php
-                                $posted = App\Models\PostResultSubmit::where('election_id',$election->id)->where('pu_id',$pu->id)->first();
+                                $posted = App\Models\PostResultSubmit::where('election_id',$election->id)->where('ward_id',$ward->id)->whereNull('pu_id')->first();
                               @endphp
                                <td class="text-center">
                                   {!! $posted  ? '<i class="fa fa-check-square text-success" aria-hidden="true"></i>': '<i class="fa fa-window-close text-danger" aria-hidden="true"></i>' !!}

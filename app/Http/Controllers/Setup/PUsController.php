@@ -79,13 +79,16 @@ class PUsController extends Controller
 
     public function getWards(Request $request)
     {
-        if(auth()->user()->usertype == 'agent')
+        if(auth()->user()->usertype == 'agent' || auth()->user()->usertype == 'ward')
         {
-            $wards = Ward::select('name','id')->where('lga_id',$request->lga_id)->where('id', auth()->user()->ward_id)->get();
-        }else
+            $wards = Ward::select('name','id')->where('id', auth()->user()->ward_id)->get();
+        }
+
+        if(auth()->user()->usertype == 'admin' || auth()->user()->usertype == 'coordinator')
         {
             $wards = Ward::select('name','id')->where('lga_id',$request->lga_id)->get();
         }
+        
         return response()->json([
             'wards'=>$wards,
         ]);

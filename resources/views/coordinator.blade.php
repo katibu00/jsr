@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('PageTitle', 'Coordinator Home')
+@section('PageTitle', 'LG Coordinator Postings')
 @section('content')
 <!-- Content -->
 <div class="container-xxl flex-grow-1 container-p-y">

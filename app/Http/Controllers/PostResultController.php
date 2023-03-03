@@ -15,26 +15,49 @@ class PostResultController extends Controller
 {
     public function index()
     {
+        $lgaId = auth()->user()->lga_id;
         if(auth()->user()->usertype == 'admin')
         {
             $data['lgas'] = LGA::all();
+            $data['elections'] = Election::all();
+
         }else
         {
             $data['lgas'] = LGA::where('id',auth()->user()->lga_id)->get();
-        }
-        $data['elections'] = Election::all();
+            $data['elections'] = Election::select('id','title')->where('accepting', '=', 1)
+            ->where(function ($query) use ($lgaId) {
+                $query->where('selected_lgas', 'LIKE', '%,'.$lgaId.',%')
+                      ->orWhere('selected_lgas', 'LIKE', $lgaId.',%')
+                      ->orWhere('selected_lgas', 'LIKE', '%,'.$lgaId)
+                      ->orWhere('selected_lgas', '=', $lgaId);
+            })
+            ->orWhere('lgas', '=', 'all')
+            ->get();
+        }       
+
         return view('post_result.index', $data);
     }
     public function indexWard()
     {
+        $lgaId = auth()->user()->lga_id;
         if(auth()->user()->usertype == 'admin')
         {
             $data['lgas'] = LGA::all();
+            $data['elections'] = Election::all();
+
         }else
         {
             $data['lgas'] = LGA::where('id',auth()->user()->lga_id)->get();
-        }
-        $data['elections'] = Election::all();
+            $data['elections'] = Election::select('id','title')->where('accepting', '=', 1)
+            ->where(function ($query) use ($lgaId) {
+                $query->where('selected_lgas', 'LIKE', '%,'.$lgaId.',%')
+                      ->orWhere('selected_lgas', 'LIKE', $lgaId.',%')
+                      ->orWhere('selected_lgas', 'LIKE', '%,'.$lgaId)
+                      ->orWhere('selected_lgas', '=', $lgaId);
+            })
+            ->orWhere('lgas', '=', 'all')
+            ->get();
+        }       
         return view('post_result.ward.index', $data);
     }
 

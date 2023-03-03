@@ -223,7 +223,10 @@
                                 window.location.replace('{{ route('result.post') }}');
                             }
                             if (response.user == 'coordinator') {
-                                window.location.replace('{{ route('result.post') }}');
+                                window.location.replace('{{ route('result.post.ward') }}');
+                            }
+                            if (response.user == 'ward') {
+                                window.location.replace('{{ route('result.post.ward') }}');
                             }
                            
 

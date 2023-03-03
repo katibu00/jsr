@@ -62,7 +62,10 @@ Route::group(['middleware' => ['auth', 'agent']], function () {
     Route::get('/agent/postings', [HomeController::class, 'agent'])->name('agent.home');
 });
 Route::group(['middleware' => ['auth']], function () {
-    Route::get('/coordinator/postings', [HomeController::class, 'coordinator'])->name('coordinator.home');
+    Route::get('/lg_coordinator/postings', [HomeController::class, 'coordinator'])->name('coordinator.home');
+});
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/ward_coordinator/postings', [HomeController::class, 'ward'])->name('ward.home');
 });
 
 Route::group(['prefix' => 'setups', 'middleware' => ['auth']], function () {

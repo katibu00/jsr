@@ -99,7 +99,8 @@
               >
                 <option value=""></option>
                 <option value="agent">Agent</option>
-                <option value="coordinator">Coordinator</option>
+                <option value="coordinator">LG Coordinator</option>
+                <option value="ward">Ward Coordinator</option>
                 <option value="admin">Admin</option>
               </select>
             </div>

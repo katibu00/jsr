@@ -74,6 +74,11 @@ class AuthController extends Controller
                     'status' => 200,
                     'user' => 'coordinator',
                 ]);
+            }else if (Auth::user()->usertype == 'ward') {
+                return response()->json([
+                    'status' => 200,
+                    'user' => 'ward',
+                ]);
             }else {
                 return back()->with('status', 'You are not authorized to access this content');
             }

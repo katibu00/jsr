@@ -32,13 +32,7 @@ class HomeController extends Controller
     {
        
         $data['wards'] = Ward::select('id','name')->where('lga_id', auth()->user()->lga_id)->where('status',1)->get();
-        // $data['elections'] = Election::select('id','title')->where('lga_id')->where('accepting', 1)->get();
-
-        // $data['elections'] = Election::select('id','title')->where(function ($query)  {
-        //     $query->where('selected_lgas', 'LIKE', '%,'.auth()->user()->lga_id.',%')
-        //           ->orWhere('lgas','=','all');
-        // })->where('accepting', 1)->get();
-
+       
         $lgaId = auth()->user()->lga_id;
         $data['elections'] = Election::select('id','title')->where('accepting', '=', 1)
                      ->where(function ($query) use ($lgaId) {
@@ -51,5 +45,23 @@ class HomeController extends Controller
                      ->get();
 
         return view('coordinator', $data);
+    }
+    public function ward()
+    {
+       
+        $data['wards'] = Ward::select('id','name')->where('id', auth()->user()->ward_id)->get();
+       
+        $lgaId = auth()->user()->lga_id;
+        $data['elections'] = Election::select('id','title')->where('accepting', '=', 1)
+                     ->where(function ($query) use ($lgaId) {
+                         $query->where('selected_lgas', 'LIKE', '%,'.$lgaId.',%')
+                               ->orWhere('selected_lgas', 'LIKE', $lgaId.',%')
+                               ->orWhere('selected_lgas', 'LIKE', '%,'.$lgaId)
+                               ->orWhere('selected_lgas', '=', $lgaId);
+                     })
+                     ->orWhere('lgas', '=', 'all')
+                     ->get();
+
+        return view('ward', $data);
     }
 }
