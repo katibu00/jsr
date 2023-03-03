@@ -84,12 +84,16 @@ Route::group(['prefix' => 'setups', 'middleware' => ['auth']], function () {
     Route::post('/wards/update', [WardsController::class, 'update'])->name('wards.update');
     Route::post('/wards/delete', [WardsController::class, 'delete'])->name('wards.delete');
 
+    Route::get('/wards/edit/index', [WardsController::class, 'editIndex'])->name('wards.edit.index');
+    Route::post('/wards/edit/index', [WardsController::class, 'editStore']);
+
     Route::get('/polling_units/index', [PUsController::class, 'index'])->name('pus.index');
     Route::post('/polling_units/index', [PUsController::class, 'store']);
     Route::post('/polling_units/update', [PUsController::class, 'update'])->name('pus.update');
     Route::post('/polling_units/delete', [PUsController::class, 'delete'])->name('pus.delete');
     Route::post('/get-wards', [PUsController::class, 'getWards'])->name('get-wards');
     Route::post('/get-pus', [PUsController::class, 'getPUs'])->name('get-pus');
+    Route::post('/get-registered', [PUsController::class, 'getRegistered'])->name('get-registered');
     Route::post('/get-warning', [PUsController::class, 'getWarning'])->name('get-warning');
 
     Route::get('/senatorial_zones/index', [ZoneController::class, 'index'])->name('zone.index');

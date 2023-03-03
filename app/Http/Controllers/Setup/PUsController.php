@@ -81,12 +81,12 @@ class PUsController extends Controller
     {
         if(auth()->user()->usertype == 'agent' || auth()->user()->usertype == 'ward')
         {
-            $wards = Ward::select('name','id')->where('id', auth()->user()->ward_id)->get();
+            $wards = Ward::select('name','id','reg_voters')->where('id', auth()->user()->ward_id)->get();
         }
 
         if(auth()->user()->usertype == 'admin' || auth()->user()->usertype == 'coordinator')
         {
-            $wards = Ward::select('name','id')->where('lga_id',$request->lga_id)->get();
+            $wards = Ward::select('name','id','reg_voters')->where('lga_id',$request->lga_id)->get();
         }
         
         return response()->json([
@@ -98,6 +98,13 @@ class PUsController extends Controller
         $pus = PU::select('name','id','voters','status')->where('lga_id',$request->lga_id)->where('ward_id',$request->ward_id)->get();
         return response()->json([
             'pus'=>$pus,
+        ]);
+    }
+    public function getRegistered(Request $request)
+    {
+        $registered = Ward::select('id','reg_voters')->where('id',$request->ward_id)->first();
+        return response()->json([
+            'registered'=>$registered->reg_voters,
         ]);
     }
     public function getWarning(Request $request)

@@ -87,6 +87,11 @@
         <div data-i18n="Wards">Wards</div>
       </a>
     </li>
+    <li class="menu-item {{($route=='wards.edit.index')?'active':''}}">
+      <a href="{{ route('wards.edit.index') }}" class="menu-link">
+        <div data-i18n="Edit Wards">Edit Wards</div>
+      </a>
+    </li>
     <li class="menu-item {{($route=='pus.index')?'active':''}}">
       <a href="{{ route('pus.index') }}" class="menu-link">
         <div data-i18n="Polling Units">Polling Units</div>

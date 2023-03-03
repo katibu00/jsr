@@ -390,12 +390,10 @@
                     var html = '';
 
                     $.each(res.pus, function(key, pu) {
-
                         html +=
                         '<tr>' +
                             '<td>' + (key + 1) + '</td>' +
                             '<td>' + pu.name +'</td>' +
-                            '<td>' +pu.voters+ '</td>' +
                             `<td>\
                                 <div class="d-flex align-items-center">\
                                     <div>\

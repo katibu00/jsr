@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Setup;
 use App\Http\Controllers\Controller;
 use App\Models\LGA;
 use App\Models\Ward;
+use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -15,6 +16,12 @@ class WardsController extends Controller
         $data['allData'] = LGA::orderBy('name')->paginate(5);
         $data['lgas'] = LGA::orderBy('name')->get();
         return view('setup.wards.index',$data);
+    }
+    public function editIndex()
+    {
+        $data['allData'] = LGA::orderBy('name')->paginate(5);
+        $data['lgas'] = LGA::orderBy('name')->get();
+        return view('setup.edit_wards.index',$data);
     }
 
     public function store(Request $request)
@@ -34,6 +41,21 @@ class WardsController extends Controller
             'status'=>200,
             'message'=>'Wards Created Successfully',
         ]);
+    }
+    public function editStore(Request $request)
+    {
+        // dd($request->all());
+        $wardCount = count($request->ward_id);
+        if($wardCount != NULL){
+            for ($i=0; $i < $wardCount; $i++){
+                $data = Ward::find($request->ward_id[$i]);
+                $data->reg_voters = $request->reg_voters[$i];
+                $data->update();
+            }
+        }
+
+       Toastr::success('Wards Updated Successfully');
+       return redirect()->back();
     }
 
     public function delete(Request $request){

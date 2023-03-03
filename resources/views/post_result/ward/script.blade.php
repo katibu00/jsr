@@ -59,6 +59,90 @@
 
         });
 
+        $(document).on('change', '#ward', function() {
+
+            var ward_id = $('#ward').val();
+            var election_id = $('#election').val();
+
+            if(election_id == '')
+            {
+                Command: toastr["error"](
+                    "Please choose Election."
+                );
+                toastr.options = {
+                    closeButton: false,
+                    debug: false,
+                    newestOnTop: false,
+                    progressBar: false,
+                    positionClass: "toast-top-right",
+                    preventDuplicates: false,
+                    onclick: null,
+                    showDuration: "300",
+                    hideDuration: "1000",
+                    timeOut: "5000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                };
+                return;
+            }
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                type: 'POST',
+                url: '{{ route('get-registered') }}',
+                data: {
+                    'ward_id': ward_id,
+                },
+                success: function(res) {
+
+                    if(res.registered != null)
+                    {
+                        $('#registered').val(res.registered);
+                        $('#registered').attr('disabled', true);
+                    }
+                    
+                  
+                },
+                error: function(xhr, ajaxOptions, thrownError) {
+                    if (xhr.status === 419) {
+                        Command: toastr["error"](
+                            "Session expired. please login again."
+                        );
+                        toastr.options = {
+                            closeButton: false,
+                            debug: false,
+                            newestOnTop: false,
+                            progressBar: false,
+                            positionClass: "toast-top-right",
+                            preventDuplicates: false,
+                            onclick: null,
+                            showDuration: "300",
+                            hideDuration: "1000",
+                            timeOut: "5000",
+                            extendedTimeOut: "1000",
+                            showEasing: "swing",
+                            hideEasing: "linear",
+                            showMethod: "fadeIn",
+                            hideMethod: "fadeOut",
+                        };
+
+                        setTimeout(() => {
+                            window.location.replace('{{ route('login') }}');
+                        }, 2000);
+                    }
+                },
+            });
+
+        });
+
     });
 </script>
 
@@ -178,7 +262,7 @@
                     var html = '';
                     html += `<div class="col-md-10 mb-2">
                                 <div class="row">
-                                    <label class="col-sm-4 col-form-label text-sm-end" for="formtabs-first-name">Registered Voters</label>
+                                    <label class="col-sm-4 col-form-label text-sm-end" for="registered">Registered Voters</label>
                                     <div class="col-sm-8">
                                     <input type="number" name="registered" id="registered" class="form-control form-control-sm" placeholder="Total Registered Voters" required/>
                                     </div>
@@ -186,7 +270,7 @@
                             </div>
                             <div class="col-md-10 mb-2">
                                 <div class="row">
-                                    <label class="col-sm-4 col-form-label text-sm-end" for="formtabs-first-name">Accredited Voters</label>
+                                    <label class="col-sm-4 col-form-label text-sm-end" for="accredited">Accredited Voters</label>
                                     <div class="col-sm-8">
                                     <input type="number" name="accredited" id="accredited" class="form-control form-control-sm" placeholder="Total Accredited Voters" required/>
                                     </div>
@@ -194,7 +278,7 @@
                             </div>
                             <div class="col-md-10 mb-2">
                                 <div class="row">
-                                    <label class="col-sm-4 col-form-label text-sm-end" for="formtabs-first-name">Valid Votes</label>
+                                    <label class="col-sm-4 col-form-label text-sm-end" for="valid">Valid Votes</label>
                                     <div class="col-sm-8">
                                     <input type="number" name="valid" id="valid" class="form-control form-control-sm" placeholder="Total Valid Votes" required/>
                                     </div>
@@ -202,7 +286,7 @@
                             </div>
                             <div class="col-md-10 mb-2">
                                 <div class="row">
-                                    <label class="col-sm-4 col-form-label text-sm-end" for="formtabs-first-name">Rejected Votes</label>
+                                    <label class="col-sm-4 col-form-label text-sm-end" for="rejected">Rejected Votes</label>
                                     <div class="col-sm-8">
                                     <input type="number" name="rejected" id="rejected" class="form-control form-control-sm" placeholder="Total Rejected Votes" required/>
                                     </div>

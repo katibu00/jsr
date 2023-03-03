@@ -1,4 +1,6 @@
 <div class="table-responsive">
+    <form action="{{ route('wards.edit.index') }}" method="POST">
+        @csrf
     <table class="table table-hover nowrap mb-0">
         <thead>
             <tr>
@@ -12,6 +14,8 @@
            
         </tbody>
     </table>
+    <button type="submit" class="btn btn-primary mt-2">Submit</button>
+    </form>
 </div>
 
 
