@@ -91,8 +91,22 @@
               <tbody>
                 @foreach ($elections as $key => $election)
                 @php
-                     $total_pu = App\Models\PU::select('id')->where('status', 1)->count();
-                     $collected_pu = App\Models\PostResultSubmit::select('id')->where('election_id',$election->id)->count();
+
+                     if($election->lgas == 'all')
+                      {
+                          $total_pu = App\Models\Ward::select('id')->where('status',1)->count();
+                      }else
+                      {
+                          $total_pu = 0;
+                          $lga_ids = explode(',', $election->selected_lgas);
+                          foreach ($lga_ids as $lg_id) {
+                              $pus = App\Models\Ward::select('id')->where('lga_id',$lg_id)->count();
+                              $total_pu += $pus; 
+                          }
+                        
+                      }
+                      $collected_pu = App\Models\PostResultSubmit::select('id')->where('election_id',$election->id)->count();
+
                 @endphp 
                 <tr>
                   <td>{{ $key+1 }}</td>
@@ -102,7 +116,7 @@
                     <div class="d-flex justify-content-between gap-3">
                       <p class="mb-0">
                           <em>{{ number_format(@$collected_pu, 0) }}/{{ number_format(@$total_pu, 0) }}
-                              PUs Collated</em>
+                              Wards Collated</em>
                       </p>
                       @php
                           @$percent = (@$collected_pu / @$total_pu) * 100;

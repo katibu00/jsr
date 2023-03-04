@@ -17,7 +17,7 @@ class HomeController extends Controller
         $data['agents'] = User::where('usertype','agent')->count();
         $data['coordinators'] = User::where('usertype','coordinator')->count();
         $data['wards'] = User::where('usertype','ward')->count();
-        $data['elections'] = Election::select('id','title','parties','accepting')->where('accepting', 1)->get();
+        $data['elections'] = Election::select('id','title','parties','accepting','selected_lgas')->where('accepting', 1)->get();
 
         return view('admin',$data);
     }

@@ -66,9 +66,9 @@
                                 </div>
                             </form>
                             @php
-                               if($total_pu == 0)
+                               if(@$total_pu == 0)
                                {
-                                $total_pu = 1;
+                                @$total_pu = 1;
                                }
                             @endphp
 
