@@ -106,7 +106,10 @@
                         
                       }
                       $collected_pu = App\Models\PostResultSubmit::select('id')->where('election_id',$election->id)->count();
-
+                      if($total_pu == 0)
+                      {
+                        $total_pu = 1;
+                      }
                 @endphp 
                 <tr>
                   <td>{{ $key+1 }}</td>
