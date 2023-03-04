@@ -30,7 +30,7 @@
               <i class="ti ti-cash ti-sm"></i>
             </span>
           </div>
-          <h5 class="card-title mb-0 mt-2">{{ number_format($agents,0) }}</h5>
+          <h5 class="card-title mb-0 mt-2">{{ number_format($coordinators,0) }}</h5>
           <small>LGA Coordinators</small>
         </div>
         <div id="quarterlySales"></div>
@@ -46,7 +46,7 @@
               <i class="ti ti-cash ti-sm"></i>
             </span>
           </div>
-          <h5 class="card-title mb-0 mt-2">-</h5>
+          <h5 class="card-title mb-0 mt-2">{{ number_format($wards,0) }}</h5>
           <small>Wards Coordinators</small>
         </div>
         <div id="orderReceived"></div>
@@ -62,8 +62,8 @@
               <i class="ti ti-calendar ti-sm"></i>
             </span>
           </div>
-          <h5 class="card-title mb-0 mt-2">-</h5>
-          <small>PU Coordinators</small>
+          <h5 class="card-title mb-0 mt-2">{{ number_format($elections->count(),0) }}</h5>
+          <small>Accepting Elections</small>
         </div>
         <div id="revenueGenerated"></div>
       </div>

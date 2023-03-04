@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Election;
 use App\Models\LGA;
-use App\Models\PostResultSubmit;
 use App\Models\PU;
 use App\Models\User;
 use App\Models\Ward;
-use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -17,6 +15,8 @@ class HomeController extends Controller
         $data['lgas'] = LGA::all();
         $data['admins'] = User::where('usertype','admin')->count();
         $data['agents'] = User::where('usertype','agent')->count();
+        $data['coordinators'] = User::where('usertype','coordinator')->count();
+        $data['wards'] = User::where('usertype','ward')->count();
         $data['elections'] = Election::select('id','title','parties','accepting')->where('accepting', 1)->get();
 
         return view('admin',$data);
@@ -30,7 +30,6 @@ class HomeController extends Controller
     }
     public function coordinator()
     {
-       
         $data['wards'] = Ward::select('id','name')->where('lga_id', auth()->user()->lga_id)->where('status',1)->get();
        
         $lgaId = auth()->user()->lga_id;

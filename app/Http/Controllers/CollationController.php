@@ -8,6 +8,7 @@ use App\Models\PostResult;
 use App\Models\PostResultSubmit;
 use App\Models\PP;
 use App\Models\PU;
+use App\Models\Ward;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
 
@@ -55,13 +56,13 @@ class CollationController extends Controller
           
             if($election->lgas == 'all')
             {
-                $data['total_pu'] = PU::select('id')->where('status',1)->count();
+                $data['total_pu'] = Ward::select('id')->where('status',1)->count();
             }else
             {
                 $total_pus = 0;
                 $lga_ids = explode(',', $election->selected_lgas);
                 foreach ($lga_ids as $lg_id) {
-                    $pus = PU::select('id')->where('lga_id',$lg_id)->count();
+                    $pus = Ward::select('id')->where('lga_id',$lg_id)->count();
                     $total_pus += $pus; 
                 }
                 $data['total_pu'] = $total_pus;
@@ -101,8 +102,8 @@ class CollationController extends Controller
             $data['borders'] = (json_encode($borders)); 
             $data['title'] = $election->title;
             $data['elections'] = Election::select('id','title')->get();
-            $data['collected_pu'] = PostResultSubmit::select('pu_id')->where('election_id',$request->election_id)->where('lga_id',$request->lga_id)->groupBy('pu_id')->get()->count();
-            $data['total_pu'] = PU::select('id')->where('status',1)->where('lga_id',$request->lga_id)->count();
+            $data['collected_pu'] = PostResultSubmit::select('ward_id')->where('election_id',$request->election_id)->where('lga_id',$request->lga_id)->groupBy('ward_id')->get()->count();
+            $data['total_pu'] = Ward::select('id')->where('status',1)->where('lga_id',$request->lga_id)->count();
           
             $data['election_id'] = $request->election_id;
             $data['send_lga_id'] = $request->lga_id;
@@ -129,17 +130,17 @@ class CollationController extends Controller
 
             $data['election_id'] = $request->election_id;
             $data['type'] = $request->type;
-            $data['collected_pu'] = PostResultSubmit::select('pu_id')->where('election_id',$request->election_id)->groupBy('pu_id')->get()->count();
+            $data['collected_pu'] = PostResultSubmit::select('ward_id')->where('election_id',$request->election_id)->groupBy('ward_id')->get()->count();
 
             if($election->lgas == 'all')
             {
-                $data['total_pu'] = PU::select('id')->where('status',1)->count();
+                $data['total_pu'] = Ward::select('id')->where('status',1)->count();
             }else
             {
                 $total_pus = 0;
                 $lga_ids = explode(',', $election->selected_lgas);
                 foreach ($lga_ids as $lg_id) {
-                    $pus = PU::select('id')->where('lga_id',$lg_id)->count();
+                    $pus = Ward::select('id')->where('lga_id',$lg_id)->count();
                     $total_pus += $pus; 
                 }
                 $data['total_pu'] = $total_pus;
@@ -161,13 +162,13 @@ class CollationController extends Controller
           
             if($election->lgas == 'all')
             {
-                $data['total_pu'] = PU::select('id')->where('status',1)->count();
+                $data['total_pu'] = Ward::select('id')->where('status',1)->count();
             }else
             {
                 $total_pus = 0;
                 $lga_ids = explode(',', $election->selected_lgas);
                 foreach ($lga_ids as $lg_id) {
-                    $pus = PU::select('id')->where('lga_id',$lg_id)->count();
+                    $pus = Ward::select('id')->where('lga_id',$lg_id)->count();
                     $total_pus += $pus; 
                 }
                 $data['total_pu'] = $total_pus;

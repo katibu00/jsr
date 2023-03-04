@@ -65,17 +65,23 @@
                                     </div>
                                 </div>
                             </form>
+                            @php
+                               if($total_pu == 0)
+                               {
+                                $total_pu = 1;
+                               }
+                            @endphp
+
 
                             <div class="casrd-header-elements ms-auto">
                                 @if (isset($election_id))
                                     <div class="d-flex justify-content-between gap-3">
                                         <p class="mb-0">
-                                            <em>{{ number_format((@$collected_pu+$wards_collated), 0) }}/{{ number_format(@$total_pu, 0) }}
-                                                PUs
-                                                Collated</em>
+                                            <em>{{ number_format((@$collected_pu), 0) }}/{{ number_format(@$total_pu, 0) }}
+                                                Wards Collated</em>
                                         </p>
                                         @php
-                                            @$percent = ((@$collected_pu+$wards_collated) / @$total_pu) * 100;
+                                            @$percent = ((@$collected_pu) / @$total_pu) * 100;
                                         @endphp
                                         <span class="text-muted">{{ number_format($percent, 0) }}%</span>
                                     </div>
