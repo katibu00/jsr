@@ -73,16 +73,8 @@ class PostResultController extends Controller
             array_push($parties, $row);
 
         }
-        $warn = 'no';
-        $exist = PostResultSubmit::where('election_id',$request->election_id)->where('pu_id',$request->pu_id)->first();
-        if($exist)
-        {
-            $warn = 'yes';
-        }
-
         return response()->json([
             'parties' => $parties,
-            'warn' => $warn,
         ]);
     }
 

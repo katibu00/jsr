@@ -63,7 +63,8 @@
 
             var ward_id = $('#ward').val();
             var election_id = $('#election').val();
-
+            $('#warning').addClass("d-none");
+           
             if(election_id == '')
             {
                 Command: toastr["error"](
@@ -99,7 +100,7 @@
                 type: 'POST',
                 url: '{{ route('get-registered') }}',
                 data: {
-                    'ward_id': ward_id,
+                    'ward_id': ward_id,'election_id':election_id
                 },
                 success: function(res) {
 
@@ -107,6 +108,12 @@
                     {
                         $('#registered').val(res.registered);
                         $('#registered').attr('disabled', true);
+                    }
+                    if(res.warn === 'yes')
+                    {
+                        $('#warning').removeClass("d-none")
+                    }else{
+                        $('#warning').addClass("d-none")
                     }
                     
                   
@@ -148,88 +155,6 @@
 
 
 
-{{-- change PU --}}
-<script type="text/javascript">
-    $(function() {
-        $(document).on('change', '#wardqqq', function() {
-
-            var election_id = $('#election').val();
-            var ward_id = $('#ward').val();
-
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                }
-            });
-
-            $.ajax({
-                type: 'POST',
-                url: '{{ route('get-warning') }}',
-                data: {
-                    'election_id': election_id,
-                    'pu_id': pu_id
-                },
-                success: function(res) {
-                   
-                    if(res.status === 'yes')
-                    {
-                        Command: toastr["warning"](res.message);
-                        toastr.options = {
-                            closeButton: false,
-                            debug: false,
-                            newestOnTop: false,
-                            progressBar: false,
-                            positionClass: "toast-top-right",
-                            preventDuplicates: false,
-                            onclick: null,
-                            showDuration: "300",
-                            hideDuration: "1000",
-                            timeOut: "5000",
-                            extendedTimeOut: "1000",
-                            showEasing: "swing",
-                            hideEasing: "linear",
-                            showMethod: "fadeIn",
-                            hideMethod: "fadeOut",
-                        };
-                        $('#warning').removeClass("d-none")
-                    }else{
-                        $('#warning').addClass("d-none")
-                    }
-                },
-                error: function(xhr, ajaxOptions, thrownError) {
-                    if (xhr.status === 419) {
-                        Command: toastr["error"](
-                            "Session expired. please login again."
-                        );
-                        toastr.options = {
-                            closeButton: false,
-                            debug: false,
-                            newestOnTop: false,
-                            progressBar: false,
-                            positionClass: "toast-top-right",
-                            preventDuplicates: false,
-                            onclick: null,
-                            showDuration: "300",
-                            hideDuration: "1000",
-                            timeOut: "5000",
-                            extendedTimeOut: "1000",
-                            showEasing: "swing",
-                            hideEasing: "linear",
-                            showMethod: "fadeIn",
-                            hideMethod: "fadeOut",
-                        };
-
-                        setTimeout(() => {
-                            window.location.replace('{{ route('login') }}');
-                        }, 2000);
-                    }
-                },
-            });
-
-        });
-
-    });
-</script>
 
 {{-- change election --}}
 <script type="text/javascript">
@@ -237,8 +162,7 @@
         $(document).on('change', '#election', function() {
 
             var election_id = $('#election').val();
-            var pu_id = $('#pu').val();
-            $('#warning').addClass("d-none");
+          
             $('#parties').html("");
             $.ajaxSetup({
                 headers: {
@@ -250,15 +174,10 @@
                 type: 'POST',
                 url: '{{ route('get-elections') }}',
                 data: {
-                    'election_id': election_id,'pu_id':pu_id,
+                    'election_id': election_id,
                 },
                 success: function(res) {
-                    if(res.warn === 'yes')
-                    {
-                        $('#warning').removeClass("d-none")
-                    }else{
-                        $('#warning').addClass("d-none")
-                    }
+                
                     var html = '';
                     html += `<div class="col-md-10 mb-2">
                                 <div class="row">

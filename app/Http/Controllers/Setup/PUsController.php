@@ -103,8 +103,17 @@ class PUsController extends Controller
     public function getRegistered(Request $request)
     {
         $registered = Ward::select('id','reg_voters')->where('id',$request->ward_id)->first();
+        
+        $warn = 'no';
+        $exist = PostResultSubmit::where('election_id',$request->election_id)->where('ward_id',$request->ward_id)->first();
+        if($exist)
+        {
+            $warn = 'yes';
+        }
+
         return response()->json([
             'registered'=>$registered->reg_voters,
+            'warn'=>$warn,
         ]);
     }
     public function getWarning(Request $request)
