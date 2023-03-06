@@ -13,10 +13,10 @@ class HomeController extends Controller
     public function admin()
     {
         $data['lgas'] = LGA::all();
-        $data['admins'] = User::where('usertype','admin')->count();
-        $data['agents'] = User::where('usertype','agent')->count();
-        $data['coordinators'] = User::where('usertype','coordinator')->count();
-        $data['wards'] = User::where('usertype','ward')->count();
+        $data['admins'] = User::where('usertype','admin')->get()->count();
+        $data['agents'] = User::where('usertype','agent')->get()->count();
+        $data['coordinators'] = User::where('usertype','coordinator')->get()->count();
+        $data['wards'] = User::where('usertype','ward')->get()->count();
         $data['elections'] = Election::select('id','title','parties','accepting','selected_lgas','lgas')->where('accepting', 1)->get();
 
         return view('admin',$data);

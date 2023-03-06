@@ -47,6 +47,7 @@
             <div class="d-grid gap-2 mt-2">
               <button type="submit" class="btn btn-primary" id="submit_btn">Submit</button>
             </div>
+            <input type="hidden" name="hidden_registered" id="hidden_registered">
           </form>
         </div>
       </div>

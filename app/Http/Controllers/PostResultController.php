@@ -162,7 +162,7 @@ class PostResultController extends Controller
     }
     public function storeWard(Request $request)
     {
-
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'election_id' => 'required|max:191',
             'lga_id' => 'required|max:191',
@@ -198,7 +198,7 @@ class PostResultController extends Controller
                 }
             }
 
-            $ward_exist->registered = $request->registered;
+            $ward_exist->registered = $request->hidden_registered;
             $ward_exist->accredited = $request->accredited;
             $ward_exist->valid = $request->valid;
             $ward_exist->rejected = $request->rejected;
@@ -215,7 +215,7 @@ class PostResultController extends Controller
         $submit->lga_id = $request->lga_id;
         $submit->ward_id = $request->ward_id;
         $submit->user_id = $user_id;
-        $submit->registered = $request->registered;
+        $submit->registered = $request->hidden_registered;
         $submit->accredited = $request->accredited;
         $submit->valid = $request->valid;
         $submit->rejected = $request->rejected;

@@ -107,7 +107,13 @@
                     if(res.registered != null)
                     {
                         $('#registered').val(res.registered);
+                        $('#hidden_registered').val(res.registered);
                         $('#registered').attr('disabled', true);
+                    }else
+                    {
+                        $('#registered').val(null);
+                        $('#hidden_registered').val(null);
+                        $('#registered').attr('disabled', false);
                     }
                     if(res.warn === 'yes')
                     {
@@ -140,7 +146,6 @@
                             showMethod: "fadeIn",
                             hideMethod: "fadeOut",
                         };
-
                         setTimeout(() => {
                             window.location.replace('{{ route('login') }}');
                         }, 2000);
@@ -152,8 +157,6 @@
 
     });
 </script>
-
-
 
 
 {{-- change election --}}
@@ -279,7 +282,8 @@
 
             let formData = new FormData($('#postResultForm')[0]);
 
-            var registered = $('#registered').val();
+            var registered = $('#hidden_registered').val();
+
             var accredited = $('#accredited').val();
             var valid = $('#valid').val();
             var rejected = $('#rejected').val();

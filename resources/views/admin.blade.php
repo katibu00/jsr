@@ -94,14 +94,19 @@
 
                      if($election->lgas == 'all')
                       {
-                          $total_wards = App\Models\Ward::select('id')->where('status',1)->count();
+                        $total_wards = 0;
+                          $lga_ids = App\Models\LGA::select('id')->get();
+                          foreach ($lga_ids as $lg_id) {
+                              $wards = App\Models\Ward::select('id')->where('lga_id',$lg_id->id)->get()->count();
+                              $total_wards += $wards; 
+                          }
                         
                       }else
                       {
                           $total_wards = 0;
                           $lga_ids = explode(',', $election->selected_lgas);
                           foreach ($lga_ids as $lg_id) {
-                              $wards = App\Models\Ward::select('id')->where('lga_id',$lg_id)->count();
+                              $wards = App\Models\Ward::select('id')->where('lga_id',$lg_id)->get()->count();
                               $total_wards += $wards; 
                           }
                         

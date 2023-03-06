@@ -52,11 +52,16 @@ class CollationController extends Controller
             $data['borders'] = (json_encode($borders)); 
             $data['title'] = $election->title;
             $data['elections'] = Election::select('id','title')->get();
-            $data['collected_pu'] = PostResultSubmit::select('pu_id')->where('election_id',$request->election_id)->groupBy('pu_id')->get()->count();
+            $data['collected_pu'] = PostResultSubmit::select('ward_id')->where('election_id',$request->election_id)->groupBy('ward_id')->get()->count();
           
             if($election->lgas == 'all')
             {
-                $data['total_pu'] = Ward::select('id')->where('status',1)->count();
+                $data['total_pu'] = 0;
+                $lga_ids = LGA::select('id')->get();
+                foreach ($lga_ids as $lg_id) {
+                    $wards = Ward::select('id')->where('lga_id',$lg_id->id)->get()->count();
+                    $data['total_pu'] += $wards; 
+                }
             }else
             {
                 $total_pus = 0;
@@ -134,7 +139,12 @@ class CollationController extends Controller
 
             if($election->lgas == 'all')
             {
-                $data['total_pu'] = Ward::select('id')->where('status',1)->count();
+                $data['total_pu'] = 0;
+                $lga_ids = LGA::select('id')->get();
+                foreach ($lga_ids as $lg_id) {
+                    $wards = Ward::select('id')->where('lga_id',$lg_id->id)->get()->count();
+                    $data['total_pu'] += $wards; 
+                }
             }else
             {
                 $total_pus = 0;
@@ -162,7 +172,12 @@ class CollationController extends Controller
           
             if($election->lgas == 'all')
             {
-                $data['total_pu'] = Ward::select('id')->where('status',1)->count();
+                $data['total_pu'] = 0;
+                $lga_ids = LGA::select('id')->get();
+                foreach ($lga_ids as $lg_id) {
+                    $wards = Ward::select('id')->where('lga_id',$lg_id->id)->get()->count();
+                    $data['total_pu'] += $wards; 
+                }
             }else
             {
                 $total_pus = 0;
