@@ -123,6 +123,27 @@ class CollationController extends Controller
 
        
 
+        if($request->type == 'ward_lg')
+        {
+            $data['elections'] = Election::select('id','title')->get();
+            $election = Election::select('parties','title','lgas','selected_lgas')->where('id', $request->election_id)->first();
+
+            $lgas = Ward::where('lga_id', $request->lga_id)->pluck('name')->toArray();
+            $data['lga'] = (json_encode($lgas)); 
+            $data['parties'] = PP::select('id','code')->get(); 
+            $data['ward_ids'] = Ward::select('id')->where('lga_id', $request->lga_id)->get(); 
+
+            $data['election_id'] = $request->election_id;
+            $data['type'] = $request->type;
+            $data['collected_pu'] = PostResultSubmit::select('ward_id')->where('lga_id', $request->lga_id)->where('election_id',$request->election_id)->groupBy('ward_id')->get()->count();
+
+            $data['total_pu'] = $data['ward_ids']->count();
+
+            $data['election_id'] = $request->election_id;
+            $data['type'] = $request->type;
+            $data['send_lga_id'] = $request->lga_id;
+        }
+
         if($request->type == 'lga')
         {
             $data['elections'] = Election::select('id','title')->get();

@@ -3,7 +3,7 @@
 @section('content')
 
 @section('js2')
-@if (@$type == 'party_lg')
+@if (@$type == 'party_lg' || @$type == 'ward_lg')
 <script type="text/javascript">
   $('.lga_div').removeClass("d-none");
   $('.election_div').removeClass("col-md-6");
@@ -45,9 +45,12 @@
                                             <option value="party_lg" {{ @$type == 'party_lg' ? 'selected' : '' }}>Party-wise
                                               (LGA)
                                              </option>
+                                            <option value="ward_lg" {{ @$type == 'ward_lg' ? 'selected' : '' }}>Ward-wise
+                                              (LGA)
+                                             </option>
                                             <option value="lga" {{ @$type == 'lga' ? 'selected' : '' }}>LGA-wise (Cum)
                                             </option>
-                                            <option value="pu" {{ @$type == 'pu' ? 'selected' : '' }}>last 50 PUs
+                                            <option value="pu" {{ @$type == 'pu' ? 'selected' : '' }}>last 50 Wards
                                             </option>
                                             
                                         </select>
@@ -229,6 +232,21 @@
                 <!-- /Party wise -->
             @endif
 
+            @if (@$type == 'ward_lg')
+                <!-- Party wise -->
+                <div class="col-lg-12 col-12 mb-4">
+                    <div class="card">
+                        <h5 class="card-header">LGA-Ward-Wise</h5>
+                        <div class="card-body">
+
+                            <canvas id="myChart2"></canvas>
+
+                        </div>
+                    </div>
+                </div>
+                <!-- /Party wise -->
+            @endif
+
 
             @if (@$type == 'pu')
                 @include('collation.pu')
@@ -241,8 +259,54 @@
 @section('js')
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    @if (@$type == 'ward_lg')
+        <script>
+            const ctx = document.getElementById('myChart2');
 
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: {!! @$lga !!},
+                    datasets: [
+                        @foreach ($parties as $party)
 
+                            @php
+                                $wards = App\Models\Ward::select('id')->where('lga_id',$send_lga_id)->get();
+                                $ward_score = [];
+                                foreach ($wards as $ward) {
+                                    $score = App\Models\PostResult::where('party_id', $party->id)
+                                        ->whereHas('postResultSubmit', function ($query) use ($ward) {
+                                            $query->where('ward_id', $ward->id);
+                                        })
+                                        ->where('election_id', $election_id)
+                                        ->sum('votes');
+                                    array_push($ward_score, $score);
+                                    $data = json_encode($ward_score);
+                                }
+                            @endphp
+
+                            {
+                                label: '{{ $party->code }}',
+                                data: {!! @$data !!},
+                                borderWidth: 1
+                            },
+                        @endforeach
+                    ]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            stacked: true
+                        },
+                        y: {
+                            stacked: true,
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        </script>
+    @endif
     @if (@$type == 'lga')
         <script>
             const ctx = document.getElementById('myChart2');
@@ -389,7 +453,7 @@
 
                 var type = $('#type').val();
 
-                if (type == 'party_lg') {
+                if (type == 'party_lg' || type == 'ward_lg') {
                     $('.lga_div').removeClass("d-none");
                     $('.election_div').removeClass("col-md-6");
                     $('.election_div').addClass("col-md-4");
