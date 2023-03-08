@@ -7,10 +7,10 @@ use App\Models\LGA;
 use App\Models\PostResult;
 use App\Models\PostResultSubmit;
 use App\Models\PP;
-use App\Models\PU;
 use App\Models\Ward;
-use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class CollationController extends Controller
 {
@@ -19,6 +19,12 @@ class CollationController extends Controller
         $data['elections'] = Election::select('id','title')->get();
         $data['lgass'] = LGA::select('id','name')->get();
         return view('collation.index',$data);
+    }
+    public function reportIndex()
+    {
+        $data['elections'] = Election::select('id','title')->get();
+        $data['lgass'] = LGA::select('id','name')->get();
+        return view('report.index',$data);
     }
 
     public function getResult(Request $request)
@@ -225,5 +231,36 @@ class CollationController extends Controller
 
         $data['lgass'] = LGA::select('id','name')->get();
         return view('collation.index',$data);
+    }
+
+    public function reportGenerate(Request $request)
+    {
+            // dd($request->all());
+
+        $election = Election::select('parties','title','lgas','selected_lgas')->where('id', $request->election_id)->first();
+        if($election->lgas == 'all')
+        {
+            $data['lgas']= DB::table('l_g_a_s')->pluck('name','id');
+        }else
+        {
+            $lgaIds = $election->selected_lgas;
+            $lgaIdsArray = explode(',', $lgaIds); 
+            $data['lgas'] = DB::table('l_g_a_s')
+                        ->whereIn('id', $lgaIdsArray)
+                        ->pluck('name','id');
+        }
+
+        $partyIds = $election->parties;
+        $partyIdsArray = explode(',', $partyIds); 
+        $data['parties'] = DB::table('p_p_s')
+                    ->whereIn('id', $partyIdsArray)
+                    ->pluck('code','id');
+        $data['election_id'] = $request->election_id;
+        // dd($data['lgas']);
+
+
+        $pdf = Pdf::loadView('pdf.report', $data)->setPaper('a4', 'landscape');
+        return $pdf->download('report.pdf');
+
     }
 }

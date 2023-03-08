@@ -13,7 +13,6 @@ use App\Http\Controllers\Setup\WardsController;
 use App\Http\Controllers\Setup\ZoneController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -132,6 +131,10 @@ Route::group(['prefix' => 'report', 'middleware' => ['auth']], function () {
 
     Route::get('/collation/index', [CollationController::class, 'index'])->name('result.collation');
     Route::post('/collation/index', [CollationController::class, 'getResult'])->name('result.collation');
+
+    Route::get('/pd/index', [CollationController::class, 'reportIndex'])->name('result.pdf');
+    Route::post('/pd/index', [CollationController::class, 'reportGenerate']);
+
 });
 Route::group(['prefix' => 'result', 'middleware' => ['auth']], function () {
     Route::get('/post/index', [PostResultController::class, 'index'])->name('result.post');

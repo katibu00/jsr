@@ -10,6 +10,12 @@
     <div data-i18n="Collation">Collation</div>
   </a>
 </li>
+<li class="menu-item {{($route=='result.pdf')?'active':''}}">
+  <a href="{{ route('result.pdf') }}" class="menu-link">
+    <i class="menu-icon tf-icons ti ti-download"></i>
+    <div data-i18n="Report (PDF)">Report (PDF)</div>
+  </a>
+</li>
 
 
 <li class="menu-item {{($prefix=='/communication')?'active open':''}}">
