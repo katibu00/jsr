@@ -34,6 +34,9 @@ $route = Route::current()->getName();
       @if(auth()->user()->usertype == 'ward')
        @include('layouts.ward')
       @endif
+      @if(auth()->user()->usertype == 'observer')
+       @include('layouts.observer')
+      @endif
   
     </ul>
   </aside>

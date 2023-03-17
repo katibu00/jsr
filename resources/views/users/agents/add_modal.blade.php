@@ -102,6 +102,7 @@
                 <option value="coordinator">LG Coordinator</option>
                 <option value="ward">Ward Coordinator</option>
                 <option value="admin">Admin</option>
+                <option value="observer">Observer</option>
               </select>
             </div>
         

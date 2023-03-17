@@ -1,0 +1,150 @@
+@extends('layouts.master')
+@section('PageTitle', 'Observer')
+@section('content')
+    <!-- Content -->
+    <div class="container-xxl flex-grow-1 container-p-y">
+
+        <div class="row">
+
+            <!-- Todays Sale -->
+            <div class="col-md-12 mb-4">
+                <div class="card h-100">
+                    <div class="card-header d-flex justify-content-between">
+                        <h5 class="card-title m-0 me-2">Ongoing Elections Result Summary</h5>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table table-bordered border-top">
+                            <thead class="border-bottom">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Election</th>
+                                    <th>Status</th>
+                                    <th>Progress</th>
+                                    <th>Parties</th>
+                                    <th>Percentage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($elections as $key => $election)
+                                    @php
+                                        
+                                        if ($election->lgas == 'all') {
+                                            $total_wards = 0;
+                                            $lga_ids = App\Models\LGA::select('id')->get();
+                                            foreach ($lga_ids as $lg_id) {
+                                                $wards = App\Models\Ward::select('id')
+                                                    ->where('lga_id', $lg_id->id)
+                                                    ->get()
+                                                    ->count();
+                                                $total_wards += $wards;
+                                            }
+                                        } else {
+                                            $total_wards = 0;
+                                            $lga_ids = explode(',', $election->selected_lgas);
+                                            foreach ($lga_ids as $lg_id) {
+                                                $wards = App\Models\Ward::select('id')
+                                                    ->where('lga_id', $lg_id)
+                                                    ->get()
+                                                    ->count();
+                                                $total_wards += $wards;
+                                            }
+                                        }
+                                        $collected_wards = App\Models\PostResultSubmit::select('id')
+                                            ->where('election_id', $election->id)
+                                            ->count();
+                                        if ($total_wards == 0) {
+                                            $total_wards = 1;
+                                        }
+                                    @endphp
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td>{{ $election->title }}</td>
+                                        <td>{!! @$election->accepting == 1
+                                            ? '<span class="badge bg-label-success">Accepting</span>'
+                                            : '<span class="badge bg-label-danger">Not Accepting</span>' !!}</td>
+                                        <td>
+                                            <div class="d-flex justify-content-between gap-3">
+                                                <p class="mb-0">
+                                                    <em>{{ number_format(@$collected_wards, 0) }}/{{ number_format(@$total_wards, 0) }}
+                                                        Wards Collated</em>
+                                                </p>
+                                                @php
+                                                    @$percent = (@$collected_wards / @$total_wards) * 100;
+                                                @endphp
+                                                <span class="text-muted">{{ number_format($percent, 2) }}%</span>
+                                            </div>
+                                            <div class="d-flex align-items-center mt-1">
+                                                <div class="progress w-100" style="height: 8px">
+                                                    <div class="progress-bar bg-primary"
+                                                        style="width: {{ number_format($percent, 2) }}%" role="progressbar"
+                                                        aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        @php
+                                            $party_ids = explode(',', $election->parties);
+                                            array_push($party_ids, '0');
+                                            $total_votes = 0;
+                                        @endphp
+                                        @foreach ($party_ids as $party)
+                                            @php
+                                                $name = App\Models\PP::select('id', 'code')
+                                                    ->where('id', $party)
+                                                    ->first();
+                                                $total_score = App\Models\PostResult::select('votes')
+                                                    ->where('election_id', $election->id)
+                                                    ->sum('votes');
+                                                if ($total_score < 1) {
+                                                    $total_score = 1;
+                                                }
+                                                $party_score = App\Models\PostResult::select('votes')
+                                                    ->where('election_id', $election->id)
+                                                    ->where('party_id', $party)
+                                                    ->sum('votes');
+                                                @$percent = (@$party_score / @$total_score) * 100;
+                                                $total_votes += $party_score;
+                                                if ($total_votes < 1) {
+                                                    $total_votes = 1;
+                                                }
+                                            @endphp
+                                    <tr>
+                                        <td colspan="4"></td>
+                                        <td>{{ $name->code . ' (' . $party_score . ')' }}</td>
+                                        <td>
+                                            <div class="d-flex justify-content-between gap-3">
+                                                <span class="text-muted">{{ number_format($percent, 2) }}%</span>
+                                            </div>
+                                            <div class="d-flex align-items-center mt-1">
+                                                <div class="progress w-100" style="height: 8px">
+                                                    <div class="progress-bar bg-primary"
+                                                        style="width: {{ number_format($percent, 2) }}%" role="progressbar"
+                                                        aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                                <tr class="bg-warning">
+                                    <td colspan="4"></td>
+                                    <td><strong>Total Votes</strong></td>
+                                    <td>
+                                        <strong>{{ $total_votes }}</strong>
+                                    </td>
+                                </tr>
+
+                                </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--/ sale -->
+
+        </div>
+    </div>
+    <!-- / Content -->
+@endsection
+@section('js')
+    <script src="/assets/js/cards-statistics.js"></script>
+@endsection

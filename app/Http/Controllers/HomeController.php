@@ -21,6 +21,14 @@ class HomeController extends Controller
 
         return view('admin',$data);
     }
+    public function observer()
+    {
+        $data['lgas'] = LGA::all();
+     
+        $data['elections'] = Election::select('id','title','parties','accepting','selected_lgas','lgas')->where('accepting', 1)->get();
+
+        return view('observer',$data);
+    }
     public function agent()
     {
        

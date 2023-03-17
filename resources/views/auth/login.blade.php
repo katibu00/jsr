@@ -228,6 +228,9 @@
                             if (response.user == 'ward') {
                                 window.location.replace('{{ route('result.post.ward') }}');
                             }
+                            if (response.user == 'observer') {
+                                window.location.replace('{{ route('observer.home') }}');
+                            }
                            
 
                         }

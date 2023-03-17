@@ -60,6 +60,11 @@ Route::group(['middleware' => ['auth', 'admin']], function () {
 Route::group(['middleware' => ['auth', 'agent']], function () {
     Route::get('/agent/postings', [HomeController::class, 'agent'])->name('agent.home');
 });
+
+Route::group(['middleware' => ['auth']], function () {
+    Route::get('/observer/summary', [HomeController::class, 'observer'])->name('observer.home');
+});
+
 Route::group(['middleware' => ['auth']], function () {
     Route::get('/lg_coordinator/postings', [HomeController::class, 'coordinator'])->name('coordinator.home');
 });

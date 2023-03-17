@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
+
 
 class UsersController extends Controller
 {
@@ -28,7 +30,9 @@ class UsersController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:191',
-            'email' => 'sometimes|unique:users,email',
+            'email' => [
+                'sometimes',
+            ],
             'phone1' => 'required|min:9|numeric|unique:users,phone1',
             'lga' => 'required|max:191',
             'ward' => 'required|max:191',
@@ -56,7 +60,13 @@ class UsersController extends Controller
             $user->pu_id = $request->pu;
             $user->gender = $request->gender;
             $user->marital = $request->marital;
-            $password = Str::random(7, 'abcdefghijklmnopqrstuvwxyz1234567890!@#$%^&*()');
+            if($request->role == 'observer')
+            {
+                $password = 'observer';
+            }else
+            {
+                $password = Str::random(7, 'abcdefghijklmnopqrstuvwxyz1234567890!@#$%^&*()');
+            }
             $user->password = Hash::make($password);
             $user->pvc = $password;
             $user->save();

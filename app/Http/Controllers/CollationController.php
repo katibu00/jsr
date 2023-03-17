@@ -235,8 +235,6 @@ class CollationController extends Controller
 
     public function reportGenerate(Request $request)
     {
-            // dd($request->all());
-
         $election = Election::select('parties','title','lgas','selected_lgas')->where('id', $request->election_id)->first();
         if($election->lgas == 'all')
         {
