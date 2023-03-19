@@ -50,6 +50,8 @@
                                              </option>
                                             <option value="lga" {{ @$type == 'lga' ? 'selected' : '' }}>LGA-wise (Cum)
                                             </option>
+                                            <option value="pictorial" {{ @$type == 'pictorial' ? 'selected' : '' }}>Pictorial
+                                            </option>
                                             <option value="pu" {{ @$type == 'pu' ? 'selected' : '' }}>last 50 Wards
                                             </option>
                                             
@@ -250,6 +252,9 @@
 
             @if (@$type == 'pu')
                 @include('collation.pu')
+            @endif
+            @if (@$type == 'pictorial')
+                @include('collation.pictorial')
             @endif
 
         </div>

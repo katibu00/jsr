@@ -64,23 +64,31 @@ class PPController extends Controller
       
         $data = PP::find($request->update_id);
         $data->name = $request->edit_name;
+        $data->candidate = $request->edit_candidate;
         $data->code = $request->edit_code;
         $data->border = $request->edit_border;
         $data->color = $request->edit_color;
 
         if ($request->file('edit_logo') != null) {
 
-            $destination = 'uploads'; 
             
-            if (File::exists($destination)) {
-                File::delete($destination);
-            }
             $file = $request->file('edit_logo');
             $extension = $file->getClientOriginalExtension();
             $filename = time() . '.' . $extension;
             $file->move('uploads',$filename);
     
             $data->logo = $filename;
+            
+        }
+        if ($request->file('edit_image') != null) {
+
+           
+            $file = $request->file('edit_image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time() . '.' . $extension;
+            $file->move('uploads',$filename);
+    
+            $data->image = $filename;
             
         }
        

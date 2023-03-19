@@ -137,6 +137,7 @@
          $(document).on('click', '.editItem', function() {
            
            let name = $(this).data('name');
+           let candidate = $(this).data('candidate');
            let code = $(this).data('code');
            let color = $(this).data('color');
            let border = $(this).data('border');
@@ -146,6 +147,7 @@
         
            $('.modal-title').html('Update '+name);
            $('#edit_name').val(name);
+           $('#edit_candidate').val(candidate);
            $('#edit_code').val(code);
            $('#edit_color').val(color);
            $('#edit_border').val(border);

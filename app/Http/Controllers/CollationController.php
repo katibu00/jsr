@@ -228,6 +228,19 @@ class CollationController extends Controller
             $data['wards_collated'] = PostResultSubmit::select('id','wards_count')->whereNotNull('wards_count')->sum('wards_count');
         }
 
+        if($request->type == 'pictorial')
+        {
+            $data['elect'] = Election::select('parties','title','lgas','selected_lgas')->where('id', $request->election_id)->first();
+           
+        //    dd($data['elect']);
+            $data['title'] =  $data['elect']->title;
+            $data['elections'] = Election::select('id','title')->get();
+            $data['election_id'] = $request->election_id;
+            $data['type'] = $request->type;
+          
+           
+        }
+
 
         $data['lgass'] = LGA::select('id','name')->get();
         return view('collation.index',$data);

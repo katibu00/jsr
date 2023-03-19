@@ -29,6 +29,12 @@
                         </div>
                         <div class="col-md-12">
                             <div class="form-group">
+                                <label class="form-label">Candidate Name</label>
+                                <input class="form-control" type="text" id="edit_candidate" name="edit_candidate" required />
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
                                 <label class="form-label">Color</label>
                                 <input class="form-control" type="text" id="edit_color" name="edit_color" required />
                             </div>
@@ -43,6 +49,12 @@
                             <div class="form-group">
                                 <label class="form-label">Logo</label>
                                 <input class="form-control" type="file" name="edit_logo"/>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="form-label">Candidate Image</label>
+                                <input class="form-control" type="file" name="edit_image"/>
                             </div>
                         </div>
                     </div>

@@ -73,7 +73,7 @@
                         <th class="text-center" style="width: %;">TRV</th>
                         <th class="text-center" style="width: %;">TAV</th>
                         <th class="text-center" style="width: %;">TVV</th>
-                        <th class="text-center" style="width: %;">TJV</th>
+                        <th class="text-center" style="width: %;">TRV</th>
                         @foreach ($parties as $code)
                             <th class="text-center" style="width: %;">{{ $code }}</th>
                         @endforeach
@@ -115,10 +115,11 @@
 
                 </tbody>
             </table>
+            <p>TVR: Total Registered Voters, TAV = Total Accredited Voters, TVV = Total Valid Votes, TRV = Total Rejected Votes </p>
         </div>
         <div style=" width: 100%; margin-top: -5px;">
             <p style="font-size: 13px; text-align: center">Generated on {{ date('l, jS \of F Y ') }} @
-                {{ date('h:i A') }} | intellisas</p>
+                {{ date('h:i A') }} | wwww.jigawasituationroom.org</p>
         </div>
     </div>
 </body>
